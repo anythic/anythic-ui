@@ -167,3 +167,50 @@ export function AssistantScene() {
     </div>
   );
 }
+
+/** GitHub's social preview card: 1280×640, shown when the repository is shared. */
+export function SocialCard() {
+  return (
+    <div
+      data-shot="social"
+      className="flex h-[640px] w-[1280px] items-center gap-12 overflow-hidden bg-background px-16"
+    >
+      <div className="w-[480px] shrink-0">
+        <p className="font-mono text-sm text-muted-foreground">@anythic/ui</p>
+        <h1 className="mt-3 text-6xl font-semibold tracking-tight">anythic/ui</h1>
+        <p className="mt-5 text-2xl leading-snug text-muted-foreground">
+          React components for AI interfaces: streaming replies, reasoning, tool calls, approvals
+          and coding agents.
+        </p>
+        <p className="mt-8 inline-block rounded-lg border border-border bg-muted px-4 py-2 font-mono text-lg">
+          npm i @anythic/ui
+        </p>
+      </div>
+      <div className="w-[640px] shrink-0 space-y-4 rounded-2xl border border-border p-6 shadow-xl">
+        <ReasoningBlock text="" duration={6} />
+        <Plan
+          title="Fix the failing login test"
+          tasks={[
+            { title: "Run the auth tests", status: "completed" },
+            { title: "Renew tokens before they expire", status: "in_progress" },
+            { title: "Run the test suite again", status: "pending" },
+          ]}
+        />
+        <ToolCall
+          name="read_file"
+          title="Reading src/auth/session.ts"
+          status="success"
+          input={{ path: "src/auth/session.ts" }}
+        />
+        <ToolApproval
+          name="run_command"
+          title="Run pnpm test"
+          input="pnpm test src/auth"
+          status="pending"
+          onApprove={noop}
+          onDeny={noop}
+        />
+      </div>
+    </div>
+  );
+}
