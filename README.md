@@ -1,46 +1,84 @@
 # anythic/ui
 
+[![npm](https://img.shields.io/npm/v/@anythic/ui?color=0a7)](https://www.npmjs.com/package/@anythic/ui)
+[![npm downloads](https://img.shields.io/npm/dm/@anythic/ui)](https://www.npmjs.com/package/@anythic/ui)
 [![CI](https://github.com/anythic/anythic-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/anythic/anythic-ui/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/anythic/anythic-ui/blob/main/LICENSE)
 
-AI-native UI primitives and components built for autonomous agents, streaming reasoning, and developer interfaces.
+React components for AI interfaces: streaming replies, reasoning, tool calls, approvals, plans, diffs and terminals. Works with any model, styled with Tailwind CSS v4.
 
-## Packages
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anythic/anythic-ui/main/.github/assets/hero-dark.png" />
+  <img alt="A coding agent built with anythic/ui: a collapsed reasoning block, a plan with progress, a failing test run in a terminal, and a code diff waiting to be accepted" src="https://raw.githubusercontent.com/anythic/anythic-ui/main/.github/assets/hero-light.png" width="860" />
+</picture>
 
-| Path                         | Description                                                            |
-| ---------------------------- | ---------------------------------------------------------------------- |
-| [`packages/ui`](packages/ui) | `@anythic/ui`, the component library (React, TypeScript, Tailwind CSS) |
-| [`apps/docs`](apps/docs)     | Docs and live demos (Next.js)                                          |
+## Why anythic/ui
 
-## Usage
+- **Streaming first.** Text grows token by token with a cursor; markdown cut off mid-stream (an open code fence, a half-written `**bold`) is closed so it never flashes as raw syntax; a stream can stop and keep what arrived.
+- **Built for agents.** Reasoning that collapses when done, tool calls with status and output, approvals before risky actions, plans, file diffs with accept and reject, terminals with ANSI colors, and context usage.
+- **Any model, any backend.** Components take plain props and `useTextStream` reads any stream, so they work with Claude, GPT, Gemini, local models, the [AI SDK](https://ai-sdk.dev) or your own server.
+- **Yours to theme.** Colors are CSS variables with [shadcn/ui](https://ui.shadcn.com)'s names, so a shadcn theme applies as is, and light and dark mode work out of the box.
+- **Accessible and translatable.** Real buttons, keyboard support, screen-reader text and reduced motion, and every built-in string can be replaced.
 
-```tsx
-"use client";
+## Quick start
 
-import { StreamingText, useTextStream } from "@anythic/ui";
-
-export function Reply({ response }: { response: Response }) {
-  const { text, status } = useTextStream(response.body);
-  return <StreamingText text={text} streaming={status === "streaming"} />;
-}
+```sh
+npm install @anythic/ui
 ```
 
-`useTextStream` accepts an async iterable of strings or a `ReadableStream` of strings or bytes, such as a fetch response body.
-
-For markdown replies, swap `StreamingText` for `Markdown`. While `streaming` is true it closes syntax the stream cut off, such as an open code fence or `**bold`, so partial output renders cleanly:
-
-```tsx
-<Markdown streaming={status === "streaming"}>{text}</Markdown>
-```
-
-Code blocks are highlighted with [Shiki](https://shiki.style), which is loaded on first use.
-
-Components are styled with Tailwind CSS v4. Import the theme after Tailwind; it brings the color tokens and tells Tailwind where the components' classes are:
+Import the theme after Tailwind in your stylesheet. It brings the color tokens and tells Tailwind where the components' classes are:
 
 ```css
 @import "tailwindcss";
 @import "@anythic/ui/theme.css";
 ```
+
+Then render a streamed reply:
+
+```tsx
+"use client";
+
+import { Markdown, useTextStream } from "@anythic/ui";
+
+export function Reply({ response }: { response: Response }) {
+  const { text, status } = useTextStream(response.body);
+  return <Markdown streaming={status === "streaming"}>{text}</Markdown>;
+}
+```
+
+Components compose: an agent's turn is a `Message` with whatever happened in it.
+
+```tsx
+<Message from="assistant">
+  <ReasoningBlock text={reasoning} streaming={thinking} />
+  <ToolCall
+    name="web_search"
+    title="Searching the web"
+    status="success"
+    input={{ query }}
+    output={results}
+  />
+  <Markdown sources={sources}>{answer}</Markdown>
+  <Sources sources={sources} />
+</Message>
+```
+
+## Components
+
+| Group   | Components                                                                                                          |
+| ------- | ------------------------------------------------------------------------------------------------------------------- |
+| Chat    | `Conversation`, `Message`, `MessageAction`, `MessageCopyButton`, `PromptInput` (with attachments), `AttachmentList` |
+| Replies | `StreamingText`, `Markdown`, `CodeBlock`, `Citation`, `Sources`                                                     |
+| Agents  | `ReasoningBlock`, `ToolCall`, `ToolApproval`, `Plan`                                                                |
+| Coding  | `CodeDiff`, `Terminal`, `ContextUsage`                                                                              |
+| Hooks   | `useTextStream`                                                                                                     |
+
+Every component has a demo in the docs app (`pnpm dev`, then http://localhost:3000), and `/showcase` shows them together as in the pictures here.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anythic/anythic-ui/main/.github/assets/chat-dark.png" />
+  <img alt="An assistant built with anythic/ui: tool calls, an answer with numbered citations, its sources, and an approval request for a rollback" src="https://raw.githubusercontent.com/anythic/anythic-ui/main/.github/assets/chat-light.png" width="860" />
+</picture>
 
 ## Theming
 
@@ -67,15 +105,25 @@ Dark mode follows the system setting, or a `dark` class or `data-theme="dark"` o
 
 To run it, copy `apps/docs/.env.example` to `apps/docs/.env.local` and set `GOOGLE_GENERATIVE_AI_API_KEY` (get one at [Google AI Studio](https://aistudio.google.com/apikey)). The route caps message size, but has no rate limiting: anyone who can reach a deployment can spend your key.
 
+## Repository
+
+| Path                                               | What lives there                                      |
+| -------------------------------------------------- | ----------------------------------------------------- |
+| [`packages/ui`](packages/ui)                       | `@anythic/ui`, the component library                  |
+| [`apps/docs`](apps/docs)                           | Docs, demos, the live demo and the showcase (Next.js) |
+| [`packages/eslint-config`](packages/eslint-config) | Shared ESLint configs                                 |
+| [`scripts`](scripts)                               | Release tagging and README screenshots                |
+
 ## Development
 
-Requires Node 20+ and pnpm 10.
+Requires Node 20.9+ (`.nvmrc` pins 22) and pnpm 10.
 
 ```sh
 pnpm install
-pnpm dev        # library in watch mode + docs at http://localhost:3000
-pnpm test
+pnpm dev          # library in watch mode + docs at http://localhost:3000
+pnpm lint
 pnpm typecheck
+pnpm test
 pnpm build
 ```
 
