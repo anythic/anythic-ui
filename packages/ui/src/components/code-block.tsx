@@ -51,18 +51,18 @@ export function CodeBlock({
     <div
       data-language={language}
       className={cn(
-        "group/code relative overflow-hidden rounded-lg border border-zinc-200 bg-zinc-50 text-sm dark:border-zinc-800 dark:bg-zinc-900",
+        "group/code relative overflow-hidden rounded-lg border border-border bg-muted text-sm",
         className,
       )}
       {...props}
     >
-      <div className="flex items-center justify-between border-b border-zinc-200 px-3 py-1.5 text-xs text-zinc-500 dark:border-zinc-800">
+      <div className="flex items-center justify-between border-b border-border px-3 py-1.5 text-xs text-muted-foreground">
         <span className="font-mono">{language || "text"}</span>
         {copyable && (
           <button
             type="button"
             onClick={() => copy(code)}
-            className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 hover:bg-zinc-200 hover:text-zinc-900 focus-visible:outline-2 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+            className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-ring"
           >
             {copied ? <CheckIcon className="size-3.5" /> : <CopyIcon className="size-3.5" />}
             <span aria-live="polite">{copied ? labels.copied : labels.copy}</span>

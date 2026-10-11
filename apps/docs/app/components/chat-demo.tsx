@@ -54,10 +54,10 @@ export function ChatDemo() {
   };
 
   return (
-    <div className="flex h-[480px] flex-col rounded-lg border border-zinc-200 dark:border-zinc-800">
+    <div className="flex h-[480px] flex-col rounded-lg border border-border">
       <Conversation className="flex-1">
         {turns.length === 0 && !streaming && (
-          <p className="text-sm text-zinc-500">Say something to start.</p>
+          <p className="text-sm text-muted-foreground">Say something to start.</p>
         )}
         {turns.map((turn, i) =>
           turn.from === "user" ? (

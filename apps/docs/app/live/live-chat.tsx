@@ -49,7 +49,7 @@ export function LiveChat() {
   const lastMessage = messages.at(-1);
 
   return (
-    <div className="flex h-[640px] flex-col rounded-lg border border-zinc-200 dark:border-zinc-800">
+    <div className="flex h-[640px] flex-col rounded-lg border border-border">
       <Conversation className="flex-1">
         {messages.length === 0 && (
           <div className="flex flex-wrap gap-2">
@@ -58,7 +58,7 @@ export function LiveChat() {
                 key={suggestion}
                 type="button"
                 onClick={() => send(suggestion)}
-                className="rounded-full border border-zinc-200 px-3 py-1.5 text-sm hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
+                className="rounded-full border border-border px-3 py-1.5 text-sm hover:bg-accent"
               >
                 {suggestion}
               </button>
@@ -102,7 +102,7 @@ export function LiveChat() {
         })}
         {status === "submitted" && lastMessage?.role === "user" && (
           <Message from="assistant">
-            <span className="animate-pulse text-zinc-500 motion-reduce:animate-none">
+            <span className="animate-pulse text-muted-foreground motion-reduce:animate-none">
               Thinking…
             </span>
           </Message>
@@ -110,7 +110,7 @@ export function LiveChat() {
         {error && (
           <div
             role="alert"
-            className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-400"
+            className="rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive"
           >
             {readableError(error)}{" "}
             <button

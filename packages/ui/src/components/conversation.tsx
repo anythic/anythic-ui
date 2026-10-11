@@ -87,7 +87,7 @@ export function Conversation({ labels, className, children, ...props }: Conversa
           onClick={jumpToBottom}
           aria-label={labels?.scrollToBottom ?? "Scroll to bottom"}
           title={labels?.scrollToBottom ?? "Scroll to bottom"}
-          className="absolute bottom-3 left-1/2 inline-flex size-8 -translate-x-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-600 shadow-md hover:text-zinc-900 focus-visible:outline-2 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-100"
+          className="absolute bottom-3 left-1/2 inline-flex size-8 -translate-x-1/2 items-center justify-center rounded-full border border-border bg-background text-muted-foreground shadow-md hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring"
         >
           <ArrowDownIcon className="size-4" />
         </button>

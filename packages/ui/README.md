@@ -24,12 +24,14 @@ Works with any model: components take plain props, and `useTextStream` reads any
 npm install @anythic/ui
 ```
 
-Point Tailwind at the package from your stylesheet:
+Import the theme after Tailwind in your stylesheet. It brings the color tokens and tells Tailwind where the components' classes are:
 
 ```css
 @import "tailwindcss";
-@source "../node_modules/@anythic/ui/dist";
+@import "@anythic/ui/theme.css";
 ```
+
+Colors are CSS variables with the same names as shadcn/ui (`--primary`, `--muted`, `--border`, ...), so you can rebrand by overriding them, and a shadcn theme applies as is.
 
 ```tsx
 "use client";

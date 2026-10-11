@@ -14,7 +14,7 @@ export function StreamingTextDemo() {
   const { text, status } = useTextStream(source);
 
   return (
-    <div className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+    <div className="rounded-lg border border-border p-4">
       <StreamingText
         text={text || "Press Stream to start."}
         streaming={status === "streaming"}
@@ -24,11 +24,11 @@ export function StreamingTextDemo() {
         <button
           type="button"
           onClick={() => setSource(fakeStream(REPLY, 40))}
-          className="rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+          className="rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
         >
           {status === "idle" ? "Stream" : "Restart"}
         </button>
-        <span className="text-xs text-zinc-500">status: {status}</span>
+        <span className="text-xs text-muted-foreground">status: {status}</span>
       </div>
     </div>
   );

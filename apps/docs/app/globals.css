@@ -1,4 +1,19 @@
 @import "tailwindcss";
+@import "@anythic/ui/theme.css";
 
-/* Tailwind does not scan node_modules, so point it at the built components. */
-@source "../node_modules/@anythic/ui/dist";
+/*
+ * Make Tailwind's dark: variant follow the same rules as the theme tokens:
+ * a dark class or data-theme="dark", otherwise the system setting unless
+ * the root opts out with light / data-theme="light". The theme picker on
+ * the docs page switches modes this way.
+ */
+@custom-variant dark {
+  &:where(.dark *, [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not(.light, [data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}

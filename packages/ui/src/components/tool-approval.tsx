@@ -87,31 +87,27 @@ export function ToolApproval({
       data-status={status}
       className={cn(
         "rounded-lg border p-3 text-sm",
-        pending
-          ? "border-amber-300 bg-amber-50/50 dark:border-amber-700/60 dark:bg-amber-950/20"
-          : "border-zinc-200 dark:border-zinc-800",
+        pending ? "border-warning/50 bg-warning/5" : "border-border",
         className,
       )}
       {...props}
     >
       <div id={headingId}>
         {pending && (
-          <div className="mb-1 text-xs font-medium uppercase tracking-wide text-amber-700 dark:text-amber-500">
+          <div className="mb-1 text-xs font-medium uppercase tracking-wide text-warning">
             {labels.heading}
           </div>
         )}
         <div className="flex items-center gap-2">
           <span className="min-w-0 flex-1 font-medium">{title ?? name}</span>
           {title != null && (
-            <code className="hidden font-mono text-xs text-zinc-500 sm:inline">{name}</code>
+            <code className="hidden font-mono text-xs text-muted-foreground sm:inline">{name}</code>
           )}
         </div>
       </div>
-      {description != null && (
-        <div className="mt-1 text-zinc-600 dark:text-zinc-400">{description}</div>
-      )}
+      {description != null && <div className="mt-1 text-muted-foreground">{description}</div>}
       {input !== undefined && (
-        <div className="mt-2 max-h-48 overflow-auto whitespace-pre-wrap break-words rounded-md bg-zinc-100 p-2 font-mono text-xs dark:bg-zinc-900">
+        <div className="mt-2 max-h-48 overflow-auto whitespace-pre-wrap break-words rounded-md bg-muted p-2 font-mono text-xs">
           {formatValue(input)}
         </div>
       )}
@@ -123,10 +119,10 @@ export function ToolApproval({
             aria-busy={busy === "approve"}
             onClick={() => decide("approve")}
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-60",
+              "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:opacity-60",
               destructive
-                ? "bg-red-600 hover:bg-red-700 focus-visible:outline-red-600"
-                : "bg-zinc-900 hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300",
+                ? "bg-destructive text-destructive-foreground hover:bg-destructive/90 focus-visible:outline-destructive"
+                : "bg-primary text-primary-foreground hover:bg-primary/90",
             )}
           >
             {busy === "approve" && <BusyIcon />}
@@ -137,7 +133,7 @@ export function ToolApproval({
             disabled={busy !== null}
             aria-busy={busy === "deny"}
             onClick={() => decide("deny")}
-            className="inline-flex items-center gap-1.5 rounded-md border border-zinc-300 px-3 py-1.5 font-medium hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-60 dark:border-zinc-700 dark:hover:bg-zinc-800"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 font-medium hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:opacity-60"
           >
             {busy === "deny" && <BusyIcon />}
             {labels.deny}
@@ -147,9 +143,7 @@ export function ToolApproval({
         <div
           className={cn(
             "mt-3 flex items-center gap-1.5 font-medium",
-            status === "approved"
-              ? "text-emerald-700 dark:text-emerald-500"
-              : "text-zinc-500 dark:text-zinc-400",
+            status === "approved" ? "text-success" : "text-muted-foreground",
           )}
         >
           {status === "approved" ? (

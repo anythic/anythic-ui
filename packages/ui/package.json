@@ -26,7 +26,9 @@
     "ui"
   ],
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -40,14 +42,18 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
+    },
+    "./theme.css": {
+      "style": "./dist/theme.css",
+      "default": "./dist/theme.css"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsup && cp src/theme.css dist/theme.css",
+    "dev": "tsup --watch --onSuccess \"cp src/theme.css dist/theme.css\"",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

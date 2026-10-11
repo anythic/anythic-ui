@@ -126,34 +126,21 @@ const defaultComponents: Components = {
     />
   ),
   blockquote: ({ node: _, ...props }) => (
-    <blockquote
-      className="my-3 border-l-2 border-zinc-300 pl-3 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
-      {...props}
-    />
+    <blockquote className="my-3 border-l-2 border-border pl-3 text-muted-foreground" {...props} />
   ),
   code: ({ node: _, ...props }) => (
-    <code
-      className="rounded bg-zinc-100 px-1 py-0.5 font-mono text-[0.875em] dark:bg-zinc-800"
-      {...props}
-    />
+    <code className="rounded bg-muted px-1 py-0.5 font-mono text-[0.875em]" {...props} />
   ),
-  hr: ({ node: _, ...props }) => (
-    <hr className="my-6 border-zinc-200 dark:border-zinc-800" {...props} />
-  ),
+  hr: ({ node: _, ...props }) => <hr className="my-6 border-border" {...props} />,
   table: ({ node: _, ...props }) => (
     <div className="my-4 overflow-x-auto">
       <table className="w-full border-collapse text-sm" {...props} />
     </div>
   ),
   th: ({ node: _, ...props }) => (
-    <th
-      className="border-b border-zinc-300 px-3 py-2 text-left font-semibold dark:border-zinc-700"
-      {...props}
-    />
+    <th className="border-b border-border px-3 py-2 text-left font-semibold" {...props} />
   ),
-  td: ({ node: _, ...props }) => (
-    <td className="border-b border-zinc-200 px-3 py-2 dark:border-zinc-800" {...props} />
-  ),
+  td: ({ node: _, ...props }) => <td className="border-b border-border px-3 py-2" {...props} />,
   img: ({ node: _, alt, ...props }) => (
     <img className="my-3 max-w-full rounded-lg" alt={alt ?? ""} {...props} />
   ),

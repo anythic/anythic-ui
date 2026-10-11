@@ -25,7 +25,7 @@ export function ToolApprovalDemo() {
   };
 
   return (
-    <div className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+    <div className="rounded-lg border border-border p-4">
       <p className="text-sm font-medium">Clean up my old report drafts.</p>
       <ToolApproval
         name="delete_file"
@@ -53,7 +53,7 @@ export function ToolApprovalDemo() {
         <button
           type="button"
           onClick={reset}
-          className="mt-4 rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
+          className="mt-4 rounded-md border border-border px-3 py-1.5 text-sm font-medium hover:bg-accent"
         >
           Reset
         </button>

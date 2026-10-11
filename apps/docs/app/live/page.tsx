@@ -7,11 +7,11 @@ export const metadata: Metadata = { title: "Live demo · anythic/ui" };
 export default function LivePage() {
   return (
     <main className="mx-auto max-w-2xl px-4 py-16">
-      <Link href="/" className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100">
+      <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">
         ← Components
       </Link>
       <h1 className="mt-4 text-3xl font-semibold tracking-tight">Live demo</h1>
-      <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+      <p className="mt-2 text-muted-foreground">
         A real model, streamed through the{" "}
         <a href="https://ai-sdk.dev" className="underline underline-offset-2">
           AI SDK

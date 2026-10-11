@@ -120,7 +120,7 @@ export function PromptInput({
       }}
       data-streaming={streaming || undefined}
       className={cn(
-        "flex items-end gap-2 rounded-xl border border-zinc-300 bg-white p-2 shadow-sm focus-within:border-zinc-400 dark:border-zinc-700 dark:bg-zinc-950 dark:focus-within:border-zinc-500",
+        "flex items-end gap-2 rounded-xl border border-border bg-background p-2 shadow-sm focus-within:border-ring",
         disabled && "opacity-60",
         className,
       )}
@@ -134,7 +134,7 @@ export function PromptInput({
         disabled={disabled}
         placeholder={labels.placeholder}
         aria-label={props["aria-label"] ?? labels.placeholder}
-        className="max-h-60 min-h-9 flex-1 resize-none bg-transparent px-2 py-1.5 text-sm outline-none placeholder:text-zinc-400 disabled:cursor-not-allowed"
+        className="max-h-60 min-h-9 flex-1 resize-none bg-transparent px-2 py-1.5 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed"
         {...props}
       />
       {actions}
@@ -144,7 +144,7 @@ export function PromptInput({
           onClick={onStop}
           aria-label={labels.stop}
           title={labels.stop}
-          className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-zinc-900 text-white hover:bg-zinc-700 focus-visible:outline-2 focus-visible:outline-offset-2 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+          className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
           <StopIcon className="size-4" />
         </button>
@@ -154,7 +154,7 @@ export function PromptInput({
           disabled={!canSend}
           aria-label={labels.send}
           title={labels.send}
-          className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-zinc-900 text-white hover:bg-zinc-700 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:bg-zinc-200 disabled:text-zinc-400 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300 dark:disabled:bg-zinc-800 dark:disabled:text-zinc-600"
+          className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground"
         >
           <ArrowUpIcon className="size-4" />
         </button>

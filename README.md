@@ -35,11 +35,30 @@ For markdown replies, swap `StreamingText` for `Markdown`. While `streaming` is 
 
 Code blocks are highlighted with [Shiki](https://shiki.style), which is loaded on first use.
 
-Components are styled with Tailwind CSS v4. Tell Tailwind to scan the package from your stylesheet:
+Components are styled with Tailwind CSS v4. Import the theme after Tailwind; it brings the color tokens and tells Tailwind where the components' classes are:
 
 ```css
 @import "tailwindcss";
-@source "../node_modules/@anythic/ui/dist";
+@import "@anythic/ui/theme.css";
+```
+
+## Theming
+
+Components use semantic color tokens instead of fixed colors: `background`, `foreground`, `muted`, `muted-foreground`, `accent`, `accent-foreground`, `primary`, `primary-foreground`, `border`, `ring`, `destructive`, `destructive-foreground`, `success` and `warning`. `theme.css` defines light and dark defaults; override any of them to match your brand:
+
+```css
+:root {
+  --primary: oklch(0.546 0.245 262.881);
+  --primary-foreground: oklch(0.985 0 0);
+}
+```
+
+The names match [shadcn/ui](https://ui.shadcn.com), so in an app with a shadcn theme these components pick it up automatically. The defaults sit in a cascade layer, so your own values always win.
+
+Dark mode follows the system setting, or a `dark` class or `data-theme="dark"` on an ancestor; put `light` or `data-theme="light"` on `<html>` to force light. Code highlighting uses Tailwind's `dark:` variant, so if you switch modes with a class or attribute, point the variant at the same rules:
+
+```css
+@custom-variant dark (&:where(.dark *, [data-theme="dark"] *));
 ```
 
 ## Live demo

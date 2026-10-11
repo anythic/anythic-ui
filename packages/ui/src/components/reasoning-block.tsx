@@ -93,7 +93,7 @@ export function ReasoningBlock({
           userToggled.current = true;
           setOpen(!open);
         }}
-        className="inline-flex items-center gap-1.5 rounded-md text-zinc-500 transition-colors hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-zinc-400 dark:hover:text-zinc-100"
+        className="inline-flex items-center gap-1.5 rounded-md text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
       >
         <span className={cn(streaming && "animate-pulse motion-reduce:animate-none")}>
           {label({ streaming, duration })}
@@ -103,7 +103,7 @@ export function ReasoningBlock({
       <div
         id={contentId}
         hidden={!open}
-        className="mt-2 border-l-2 border-zinc-200 pl-3 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
+        className="mt-2 border-l-2 border-border pl-3 text-muted-foreground"
       >
         <StreamingText text={text} streaming={streaming} cursor={false} />
       </div>

@@ -28,7 +28,7 @@ export function Message({ from, actions, className, children, ...props }: Messag
         className={cn(
           "min-w-0 text-sm",
           isUser
-            ? "max-w-[80%] whitespace-pre-wrap break-words rounded-2xl bg-zinc-100 px-3.5 py-2 dark:bg-zinc-800"
+            ? "max-w-[80%] whitespace-pre-wrap break-words rounded-2xl bg-muted px-3.5 py-2"
             : "w-full space-y-3",
         )}
       >
@@ -54,7 +54,7 @@ export function MessageAction({ label, className, children, ...props }: MessageA
       aria-label={label}
       title={label}
       className={cn(
-        "inline-flex size-7 items-center justify-center rounded-md text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-2 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100 [&_svg]:size-4",
+        "inline-flex size-7 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-ring [&_svg]:size-4",
         className,
       )}
       {...props}

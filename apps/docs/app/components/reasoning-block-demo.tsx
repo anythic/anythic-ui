@@ -32,7 +32,7 @@ export function ReasoningBlockDemo() {
   };
 
   return (
-    <div className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+    <div className="rounded-lg border border-border p-4">
       <p className="text-sm font-medium">Why is the sky blue?</p>
       {reasoning.status !== "idle" && (
         <ReasoningBlock
@@ -51,7 +51,7 @@ export function ReasoningBlockDemo() {
       <button
         type="button"
         onClick={start}
-        className="mt-4 rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+        className="mt-4 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
       >
         {reasoning.status === "idle" ? "Ask" : "Ask again"}
       </button>

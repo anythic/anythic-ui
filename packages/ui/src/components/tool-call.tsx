@@ -35,10 +35,12 @@ const DEFAULT_STATUS_LABELS: Record<ToolCallStatus, string> = {
 };
 
 const STATUS_ICONS: Record<ToolCallStatus, ReactNode> = {
-  pending: <CircleIcon className="size-4 text-zinc-400" />,
-  running: <SpinnerIcon className="size-4 animate-spin text-zinc-500 motion-reduce:animate-none" />,
-  success: <CheckIcon className="size-4 text-emerald-600 dark:text-emerald-500" />,
-  error: <CrossIcon className="size-4 text-red-600 dark:text-red-500" />,
+  pending: <CircleIcon className="size-4 text-muted-foreground" />,
+  running: (
+    <SpinnerIcon className="size-4 animate-spin text-muted-foreground motion-reduce:animate-none" />
+  ),
+  success: <CheckIcon className="size-4 text-success" />,
+  error: <CrossIcon className="size-4 text-destructive" />,
 };
 
 /**
@@ -72,7 +74,7 @@ export function ToolCall({
       <span className="sr-only">{statusLabel}:</span>
       <span className="min-w-0 flex-1 truncate font-medium">{title ?? name}</span>
       {title != null && (
-        <code className="hidden font-mono text-xs text-zinc-500 sm:inline">{name}</code>
+        <code className="hidden font-mono text-xs text-muted-foreground sm:inline">{name}</code>
       )}
     </>
   );
@@ -82,7 +84,7 @@ export function ToolCall({
     <div
       data-state={open ? "open" : "closed"}
       data-status={status}
-      className={cn("rounded-lg border border-zinc-200 text-sm dark:border-zinc-800", className)}
+      className={cn("rounded-lg border border-border text-sm", className)}
       {...props}
     >
       {hasDetails ? (
@@ -93,13 +95,13 @@ export function ToolCall({
           onClick={() => setOpen(!open)}
           className={cn(
             headerClass,
-            "hover:bg-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-2 dark:hover:bg-zinc-900",
+            "hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
           )}
         >
           {header}
           <ChevronRightIcon
             className={cn(
-              "size-3.5 shrink-0 text-zinc-500 transition-transform",
+              "size-3.5 shrink-0 text-muted-foreground transition-transform",
               open && "rotate-90",
             )}
           />
@@ -108,11 +110,7 @@ export function ToolCall({
         <div className={headerClass}>{header}</div>
       )}
       {hasDetails && (
-        <div
-          id={contentId}
-          hidden={!open}
-          className="space-y-3 border-t border-zinc-200 px-3 py-3 dark:border-zinc-800"
-        >
+        <div id={contentId} hidden={!open} className="space-y-3 border-t border-border px-3 py-3">
           {input !== undefined && <Section label="Input">{formatValue(input)}</Section>}
           {showError && (
             <Section label="Error" tone="error">
@@ -137,11 +135,13 @@ function Section({
 }) {
   return (
     <div>
-      <div className="mb-1 text-xs font-medium uppercase tracking-wide text-zinc-500">{label}</div>
+      <div className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        {label}
+      </div>
       <div
         className={cn(
-          "max-h-64 overflow-auto whitespace-pre-wrap break-words rounded-md bg-zinc-50 p-2 font-mono text-xs dark:bg-zinc-900",
-          tone === "error" && "bg-red-50 text-red-700 dark:bg-red-950/40 dark:text-red-400",
+          "max-h-64 overflow-auto whitespace-pre-wrap break-words rounded-md bg-muted p-2 font-mono text-xs",
+          tone === "error" && "bg-destructive/10 text-destructive",
         )}
       >
         {children}
