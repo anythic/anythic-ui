@@ -1,6 +1,6 @@
 {
   "name": "@anythic/ui",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "AI-native UI primitives and components for autonomous agents, streaming reasoning, and developer interfaces.",
   "license": "MIT",
   "author": "anythic",
