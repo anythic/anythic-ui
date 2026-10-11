@@ -18,7 +18,7 @@ function bytesStream(chunks: Uint8Array[]) {
 describe("useTextStream", () => {
   it("is idle without a source", () => {
     const { result } = renderHook(() => useTextStream(null));
-    expect(result.current).toEqual({ text: "", status: "idle", error: undefined });
+    expect(result.current).toMatchObject({ text: "", status: "idle", error: undefined });
   });
 
   it("accumulates an async iterable", async () => {
@@ -64,6 +64,33 @@ describe("useTextStream", () => {
     await waitFor(() => expect(result.current.text).toBe("first"));
     unmount();
     await waitFor(() => expect(cancelled).toBe(true));
+  });
+
+  it("stops early but keeps the text received so far", async () => {
+    let cancelled = false;
+    const source = new ReadableStream<string>({
+      start(controller) {
+        controller.enqueue("partial ");
+      },
+      cancel() {
+        cancelled = true;
+      },
+    });
+    const { result } = renderHook(() => useTextStream(source));
+    await waitFor(() => expect(result.current.text).toBe("partial "));
+
+    act(() => result.current.stop());
+    expect(result.current.status).toBe("stopped");
+    expect(result.current.text).toBe("partial ");
+    await waitFor(() => expect(cancelled).toBe(true));
+  });
+
+  it("ignores stop once the stream is done", async () => {
+    const source = fromChunks(["all"]);
+    const { result } = renderHook(() => useTextStream(source));
+    await waitFor(() => expect(result.current.status).toBe("done"));
+    act(() => result.current.stop());
+    expect(result.current.status).toBe("done");
   });
 
   it("restarts from empty when the source changes", async () => {

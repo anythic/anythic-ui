@@ -53,3 +53,15 @@ export const CopyIcon = (props: IconProps) => (
     <path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2" />
   </Icon>
 );
+
+export const ArrowUpIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="M8 13V3M3.5 7.5L8 3l4.5 4.5" />
+  </Icon>
+);
+
+export const StopIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <rect x="4" y="4" width="8" height="8" rx="1" fill="currentColor" stroke="none" />
+  </Icon>
+);

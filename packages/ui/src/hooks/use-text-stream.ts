@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /** Anything that yields text chunks: an async generator, or a fetch body. */
 export type TextStreamSource =
@@ -6,7 +6,7 @@ export type TextStreamSource =
   | ReadableStream<string>
   | ReadableStream<Uint8Array>;
 
-export type TextStreamStatus = "idle" | "streaming" | "done" | "error";
+export type TextStreamStatus = "idle" | "streaming" | "done" | "stopped" | "error";
 
 export interface TextStreamState {
   /** All text received so far. */
@@ -15,18 +15,32 @@ export interface TextStreamState {
   error: unknown;
 }
 
+export interface TextStreamResult extends TextStreamState {
+  /**
+   * Cancels the stream but keeps the text received so far, moving the
+   * status to `"stopped"`. Does nothing unless streaming.
+   */
+  stop: () => void;
+}
+
 const IDLE: TextStreamState = { text: "", status: "idle", error: undefined };
 
 /**
  * Consumes a text stream and returns the accumulated text.
  *
  * Passing a new source restarts from empty; passing `null` resets to idle.
- * The previous source is cancelled when it is replaced or on unmount.
+ * The previous source is cancelled when it is replaced or on unmount, and
+ * `stop()` cancels it early while keeping the partial text.
+ *
+ * Keep the source in state or a ref: creating it during render, as in
+ * `useTextStream(fetchReply())`, hands over a new stream every render and
+ * restarts forever.
  */
 export function useTextStream(
   source: TextStreamSource | null | undefined,
-): TextStreamState {
+): TextStreamResult {
   const [state, setState] = useState<TextStreamState>(IDLE);
+  const cancelRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     if (!source) {
@@ -51,14 +65,27 @@ export function useTextStream(
       }
     })();
 
-    return () => {
+    const cancel = () => {
+      if (cancelled) return;
       cancelled = true;
       controller.abort();
       void chunks.return(undefined);
     };
+    cancelRef.current = cancel;
+
+    return () => {
+      cancel();
+      cancelRef.current = null;
+    };
   }, [source]);
 
-  return state;
+  const stop = useCallback(() => {
+    // Cancelling a finished stream is a no-op, so only the status needs a guard.
+    cancelRef.current?.();
+    setState((prev) => (prev.status === "streaming" ? { ...prev, status: "stopped" } : prev));
+  }, []);
+
+  return { ...state, stop };
 }
 
 /** Normalises every supported source into an async generator of strings. */

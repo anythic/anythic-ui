@@ -6,6 +6,11 @@ export {
 } from "./components/code-block";
 export { Markdown, type MarkdownProps } from "./components/markdown";
 export {
+  PromptInput,
+  type PromptInputLabels,
+  type PromptInputProps,
+} from "./components/prompt-input";
+export {
   ReasoningBlock,
   type ReasoningBlockProps,
   type ReasoningLabelState,
@@ -13,6 +18,7 @@ export {
 export { StreamingText, type StreamingTextProps } from "./components/streaming-text";
 export {
   useTextStream,
+  type TextStreamResult,
   type TextStreamSource,
   type TextStreamState,
   type TextStreamStatus,
