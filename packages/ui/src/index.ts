@@ -16,6 +16,7 @@ export {
   type MessageFrom,
   type MessageProps,
 } from "./components/message";
+export { Plan, type PlanProps, type PlanTask, type PlanTaskStatus } from "./components/plan";
 export {
   PromptInput,
   type PromptInputLabels,

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChatDemo } from "./components/chat-demo";
 import { MarkdownDemo } from "./components/markdown-demo";
+import { PlanDemo } from "./components/plan-demo";
 import { ReasoningBlockDemo } from "./components/reasoning-block-demo";
 import { SourcesDemo } from "./components/sources-demo";
 import { StreamingTextDemo } from "./components/streaming-text-demo";
@@ -76,6 +77,18 @@ export default function Home() {
         </p>
         <div className="mt-4">
           <ToolCallDemo />
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-lg font-medium">Plan</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          The agent&apos;s plan as a checklist, with progress. Statuses match the todo states agents
+          report: <code>pending</code>, <code>in_progress</code>, <code>completed</code>, plus{" "}
+          <code>failed</code>.
+        </p>
+        <div className="mt-4">
+          <PlanDemo />
         </div>
       </section>
 
