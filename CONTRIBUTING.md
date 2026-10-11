@@ -38,6 +38,18 @@ pnpm test
 pnpm build
 ```
 
+## Changesets
+
+Every change to `@anythic/ui` that users will notice needs a changeset: a short note that says what changed and whether it is a patch, minor or major release. Add one with:
+
+```sh
+pnpm changeset
+```
+
+Pick `@anythic/ui`, choose the bump, and write one or two sentences for the changelog. Commit the generated file in `.changeset/` with your change. Docs-only and internal changes do not need one.
+
+When changesets reach `main`, the release workflow opens a "Version Packages" pull request that bumps the version and updates `CHANGELOG.md`. Merging it publishes to npm.
+
 ## Guidelines
 
 - **Keep pull requests focused.** One component or fix per pull request is easiest to review.
