@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChatDemo } from "./components/chat-demo";
 import { CodeDiffDemo } from "./components/code-diff-demo";
+import { ContextUsageDemo } from "./components/context-usage-demo";
 import { MarkdownDemo } from "./components/markdown-demo";
 import { PlanDemo } from "./components/plan-demo";
 import { ReasoningBlockDemo } from "./components/reasoning-block-demo";
@@ -113,6 +114,17 @@ export default function Home() {
         </p>
         <div className="mt-4">
           <TerminalDemo />
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-lg font-medium">ContextUsage</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          How full the context window is, with tokens by kind and cost. It warns at 80% and signals
+          danger at 95%.
+        </p>
+        <div className="mt-4">
+          <ContextUsageDemo />
         </div>
       </section>
 

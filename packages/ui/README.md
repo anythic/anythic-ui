@@ -17,6 +17,7 @@ Works with any model: components take plain props, and `useTextStream` reads any
 | `Plan`                                          | The agent's plan as a checklist, with progress                           |
 | `CodeDiff`                                      | A file change line by line, with accept and reject                       |
 | `Terminal`                                      | A command's streaming output with ANSI colors and exit code              |
+| `ContextUsage`                                  | How full the context window is, with tokens and cost                     |
 | `Message`, `MessageAction`, `MessageCopyButton` | One turn in a chat, with actions under it                                |
 | `Conversation`                                  | A message list that follows new content                                  |
 | `PromptInput`                                   | Where the user types, with attachments and a stop button while streaming |

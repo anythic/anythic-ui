@@ -16,6 +16,12 @@ export {
   type CodeDiffProps,
   type CodeDiffStatus,
 } from "./components/code-diff";
+export {
+  ContextUsage,
+  type ContextUsageBreakdown,
+  type ContextUsageLabels,
+  type ContextUsageProps,
+} from "./components/context-usage";
 export { Conversation, type ConversationProps } from "./components/conversation";
 export { Markdown, type MarkdownProps } from "./components/markdown";
 export {
