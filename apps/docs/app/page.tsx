@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ChatDemo } from "./components/chat-demo";
 import { MarkdownDemo } from "./components/markdown-demo";
 import { ReasoningBlockDemo } from "./components/reasoning-block-demo";
@@ -13,6 +14,12 @@ export default function Home() {
         AI-native UI primitives for autonomous agents, streaming reasoning, and
         developer interfaces.
       </p>
+      <Link
+        href="/live"
+        className="mt-4 inline-block text-sm font-medium underline underline-offset-2 hover:no-underline"
+      >
+        Try them with a real model →
+      </Link>
 
       <section className="mt-12">
         <h2 className="text-lg font-medium">StreamingText</h2>
