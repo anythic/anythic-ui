@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* Tailwind does not scan node_modules, so point it at the built components. */
+@source "../node_modules/@anythic/ui/dist";

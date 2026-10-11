@@ -1,0 +1,23 @@
+import { StreamingTextDemo } from "./components/streaming-text-demo";
+
+export default function Home() {
+  return (
+    <main className="mx-auto max-w-2xl px-4 py-16">
+      <h1 className="text-3xl font-semibold tracking-tight">anythic/ui</h1>
+      <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+        AI-native UI primitives for autonomous agents, streaming reasoning, and
+        developer interfaces.
+      </p>
+
+      <section className="mt-12">
+        <h2 className="text-lg font-medium">StreamingText</h2>
+        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+          Text that grows as tokens arrive, fed by <code>useTextStream</code>.
+        </p>
+        <div className="mt-4">
+          <StreamingTextDemo />
+        </div>
+      </section>
+    </main>
+  );
+}
