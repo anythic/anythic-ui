@@ -1,3 +1,8 @@
+export {
+  AttachmentList,
+  type Attachment,
+  type AttachmentListProps,
+} from "./components/attachments";
 export { Citation, type CitationProps, type Source } from "./components/citation";
 export {
   CodeBlock,
@@ -19,6 +24,7 @@ export {
 export { Plan, type PlanProps, type PlanTask, type PlanTaskStatus } from "./components/plan";
 export {
   PromptInput,
+  type PromptInputAttachmentOptions,
   type PromptInputLabels,
   type PromptInputProps,
 } from "./components/prompt-input";
@@ -51,9 +57,12 @@ export {
   CircleIcon,
   CopyIcon,
   CrossIcon,
+  FileIcon,
+  PaperclipIcon,
   RetryIcon,
   SpinnerIcon,
   StopIcon,
 } from "./lib/icons";
 export { cn } from "./lib/cn";
+export type { FileRejection, FileRejectionReason, FileRules } from "./lib/files";
 export { completeMarkdown } from "./lib/complete-markdown";

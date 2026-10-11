@@ -78,3 +78,16 @@ export const ArrowDownIcon = (props: IconProps) => (
     <path d="M8 3v10M3.5 8.5L8 13l4.5-4.5" />
   </Icon>
 );
+
+export const PaperclipIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="M13 7.5l-5.3 5.3a3.2 3.2 0 0 1-4.5-4.5l5.6-5.6a2.1 2.1 0 0 1 3 3L6.2 11.3a1 1 0 0 1-1.5-1.5L9.8 4.7" />
+  </Icon>
+);
+
+export const FileIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="M9 2H4.5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V5.5L9 2z" />
+    <path d="M9 2v3.5h3.5" />
+  </Icon>
+);

@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  AttachmentList,
   Conversation,
   Markdown,
   Message,
@@ -14,22 +15,36 @@ import {
 import { useEffect, useState } from "react";
 import { fakeStream } from "../../lib/fake-stream";
 
-type Turn = { from: "user" | "assistant"; text: string };
+type Turn = { from: "user" | "assistant"; text: string; files?: File[] };
 
-function reply(prompt: string) {
+function reply(prompt: string, files: File[]) {
+  const attached = files.length
+    ? `I can see ${files.length === 1 ? "the file" : `${files.length} files`} you attached: ` +
+      files.map((file) => `\`${file.name}\``).join(", ") +
+      ". This demo does not read them, but a real backend would get them from `onSubmit`.\n\n"
+    : "";
   return (
-    `You asked: *${prompt}*\n\n` +
+    (prompt ? `You asked: *${prompt}*\n\n` : "") +
+    attached +
     "There is no model behind this demo, so each reply streams a word at a " +
     "time. Send a few messages and the conversation scrolls with the reply; " +
     "scroll up while one streams and it stays put, with a button to jump back.\n\n" +
     "- **Enter** sends, **Shift+Enter** adds a line\n" +
     "- The stop button keeps what has arrived so far\n" +
-    "- Copy and retry sit under each reply"
+    "- Copy and retry sit under each reply\n" +
+    "- Attach files with the clip, by dropping them, or by pasting an image"
   );
 }
 
+const REJECTION_TEXT = {
+  type: "type not allowed",
+  size: "larger than 10 MB",
+  count: "only 4 files at a time",
+} as const;
+
 export function ChatDemo() {
   const [turns, setTurns] = useState<Turn[]>([]);
+  const [notice, setNotice] = useState("");
   const [source, setSource] = useState<TextStreamSource | null>(null);
   const { text, status, stop } = useTextStream(source);
   const streaming = status === "streaming";
@@ -41,16 +56,17 @@ export function ChatDemo() {
     setSource(null);
   }, [status, text]);
 
-  const send = (prompt: string) => {
-    setTurns((prev) => [...prev, { from: "user", text: prompt }]);
-    setSource(fakeStream(reply(prompt), 40));
+  const send = (prompt: string, files: File[]) => {
+    setNotice("");
+    setTurns((prev) => [...prev, { from: "user", text: prompt, files }]);
+    setSource(fakeStream(reply(prompt, files), 40));
   };
 
   const retry = () => {
     const lastPrompt = [...turns].reverse().find((turn) => turn.from === "user");
     if (!lastPrompt) return;
     setTurns((prev) => prev.slice(0, -1));
-    setSource(fakeStream(reply(lastPrompt.text), 40));
+    setSource(fakeStream(reply(lastPrompt.text, lastPrompt.files ?? []), 40));
   };
 
   return (
@@ -62,6 +78,9 @@ export function ChatDemo() {
         {turns.map((turn, i) =>
           turn.from === "user" ? (
             <Message key={i} from="user">
+              {turn.files && turn.files.length > 0 && (
+                <AttachmentList items={turn.files} className={turn.text ? "mb-2" : undefined} />
+              )}
               {turn.text}
             </Message>
           ) : (
@@ -90,7 +109,26 @@ export function ChatDemo() {
         )}
       </Conversation>
       <div className="p-3 pt-0">
-        <PromptInput onSubmit={send} streaming={streaming} onStop={stop} />
+        <PromptInput
+          onSubmit={send}
+          streaming={streaming}
+          onStop={stop}
+          attachments={{
+            maxFiles: 4,
+            maxSize: 10 * 1024 * 1024,
+            onReject: (rejections) =>
+              setNotice(
+                rejections
+                  .map(({ file, reason }) => `${file.name}: ${REJECTION_TEXT[reason]}`)
+                  .join(" · "),
+              ),
+          }}
+        />
+        {notice && (
+          <p role="status" className="mt-2 text-xs text-destructive">
+            {notice}
+          </p>
+        )}
       </div>
     </div>
   );

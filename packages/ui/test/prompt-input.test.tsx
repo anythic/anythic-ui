@@ -12,7 +12,7 @@ describe("PromptInput", () => {
     render(<PromptInput onSubmit={onSubmit} />);
     type("  hello  ");
     fireEvent.keyDown(box(), { key: "Enter" });
-    expect(onSubmit).toHaveBeenCalledWith("hello");
+    expect(onSubmit).toHaveBeenCalledWith("hello", []);
     expect(box()).toHaveValue("");
   });
 
@@ -39,7 +39,7 @@ describe("PromptInput", () => {
     render(<PromptInput onSubmit={onSubmit} />);
     type("hi");
     fireEvent.click(screen.getByRole("button", { name: "Send" }));
-    expect(onSubmit).toHaveBeenCalledWith("hi");
+    expect(onSubmit).toHaveBeenCalledWith("hi", []);
   });
 
   it("shows a stop button while streaming and does not send", () => {
