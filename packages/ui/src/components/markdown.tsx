@@ -11,6 +11,8 @@ import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { cn } from "../lib/cn";
 import { completeMarkdown } from "../lib/complete-markdown";
+import { remarkCitations } from "../lib/remark-citations";
+import { Citation, type Source } from "./citation";
 import { CodeBlock, type CodeTheme } from "./code-block";
 
 export interface MarkdownProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
@@ -23,11 +25,16 @@ export interface MarkdownProps extends Omit<HTMLAttributes<HTMLDivElement>, "chi
   streaming?: boolean;
   /** Shiki theme names for code blocks in light and dark mode. */
   codeTheme?: CodeTheme;
+  /**
+   * Sources the text cites. Markers like `[1]` or `[1, 3]` that point at one
+   * of them (numbered from 1) render as `Citation`s; pair with `Sources`.
+   */
+  sources?: Source[];
   /** Overrides for how individual elements render, merged over the defaults. */
   components?: Components;
 }
 
-const REMARK_PLUGINS = [remarkGfm];
+const NO_SOURCES: Source[] = [];
 
 /**
  * Renders model output as markdown with styled elements and highlighted,
@@ -38,11 +45,20 @@ export function Markdown({
   children,
   streaming = false,
   codeTheme,
+  sources = NO_SOURCES,
   components,
   className,
   ...props
 }: MarkdownProps) {
-  const source = streaming ? completeMarkdown(children) : children;
+  let source = streaming ? completeMarkdown(children) : children;
+  // Hold back a citation that is still arriving, like "[1", so it appears
+  // once, as a chip, instead of as raw text first.
+  if (streaming && sources.length > 0) source = source.replace(/\[[\d,\s]*$/, "");
+
+  const remarkPlugins = useMemo(
+    () => (sources.length > 0 ? [remarkGfm, remarkCitations(sources.length)] : [remarkGfm]),
+    [sources.length],
+  );
 
   const merged = useMemo<Components>(
     () => (components ? { ...defaultComponents, ...components } : defaultComponents),
@@ -60,18 +76,29 @@ export function Markdown({
       {...props}
     >
       <CodeThemeContext.Provider value={codeTheme}>
-        <ReactMarkdown remarkPlugins={REMARK_PLUGINS} components={merged}>
-          {source}
-        </ReactMarkdown>
+        <SourcesContext.Provider value={sources}>
+          <ReactMarkdown remarkPlugins={remarkPlugins} components={merged}>
+            {source}
+          </ReactMarkdown>
+        </SourcesContext.Provider>
       </CodeThemeContext.Provider>
     </div>
   );
 }
 
-// The theme travels by context so `pre` can be a stable component: a new
-// component type on each render would remount code blocks and drop their
-// highlighting.
+// The theme and sources travel by context so `pre` and `sup` can be stable
+// components: a new component type on each render would remount code blocks
+// and drop their highlighting.
 const CodeThemeContext = createContext<CodeTheme | undefined>(undefined);
+const SourcesContext = createContext<Source[]>(NO_SOURCES);
+
+function Sup({ children, ...props }: { children?: ReactNode; "data-citation"?: unknown }) {
+  const sources = useContext(SourcesContext);
+  const index = Number(props["data-citation"]);
+  const source = sources[index - 1];
+  if (!source) return <sup {...props}>{children}</sup>;
+  return <Citation source={source} index={index} />;
+}
 
 function Pre({ children }: { children?: ReactNode }) {
   const theme = useContext(CodeThemeContext);
@@ -96,6 +123,7 @@ function codeElement(children: ReactNode): CodeElement | undefined {
 
 const defaultComponents: Components = {
   pre: ({ children }) => <Pre>{children}</Pre>,
+  sup: ({ node: _, ...props }) => <Sup {...props} />,
   p: ({ node: _, ...props }) => <p className="my-3" {...props} />,
   h1: ({ node: _, ...props }) => <h1 className="mb-3 mt-6 text-2xl font-semibold" {...props} />,
   h2: ({ node: _, ...props }) => <h2 className="mb-3 mt-6 text-xl font-semibold" {...props} />,

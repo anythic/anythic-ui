@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ChatDemo } from "./components/chat-demo";
 import { MarkdownDemo } from "./components/markdown-demo";
 import { ReasoningBlockDemo } from "./components/reasoning-block-demo";
+import { SourcesDemo } from "./components/sources-demo";
 import { StreamingTextDemo } from "./components/streaming-text-demo";
 import { ToolApprovalDemo } from "./components/tool-approval-demo";
 import { ThemePicker } from "./components/theme-picker";
@@ -43,6 +44,17 @@ export default function Home() {
         </p>
         <div className="mt-4">
           <MarkdownDemo />
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-lg font-medium">Citation, Sources</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Pass <code>sources</code> to <code>Markdown</code> and the model&apos;s <code>[1]</code>{" "}
+          markers become citations. Hover or focus one to preview the source.
+        </p>
+        <div className="mt-4">
+          <SourcesDemo />
         </div>
       </section>
 

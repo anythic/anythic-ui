@@ -1,3 +1,4 @@
+export { Citation, type CitationProps, type Source } from "./components/citation";
 export {
   CodeBlock,
   type CodeBlockLabels,
@@ -25,6 +26,7 @@ export {
   type ReasoningBlockProps,
   type ReasoningLabelState,
 } from "./components/reasoning-block";
+export { Sources, type SourcesProps } from "./components/sources";
 export { StreamingText, type StreamingTextProps } from "./components/streaming-text";
 export {
   useTextStream,
