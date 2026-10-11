@@ -1,7 +1,7 @@
 import { useEffect, useState, type HTMLAttributes } from "react";
 import { cn } from "../lib/cn";
 import { formatBytes } from "../lib/files";
-import { CrossIcon, FileIcon } from "../lib/icons";
+import { CrossIcon, FileIcon } from "../icons";
 
 /** A file that already lives somewhere, e.g. one sent in an earlier message. */
 export interface Attachment {

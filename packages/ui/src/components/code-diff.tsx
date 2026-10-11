@@ -1,8 +1,8 @@
 import { useId, useMemo, useState, type HTMLAttributes, type ReactNode } from "react";
 import { cn } from "../lib/cn";
 import { diffLines, foldContext, parsePatch, type DiffLine, type DiffRow } from "../lib/diff";
-import { CheckIcon, ChevronRightIcon, CrossIcon, SpinnerIcon } from "../lib/icons";
-import { useControllableOpen } from "../lib/use-controllable-open";
+import { CheckIcon, ChevronRightIcon, CrossIcon, SpinnerIcon } from "../icons";
+import { useControllableOpen } from "../hooks/use-controllable-open";
 
 export type CodeDiffStatus = "pending" | "accepted" | "rejected";
 

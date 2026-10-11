@@ -1,7 +1,7 @@
 import { useId, type HTMLAttributes, type ReactNode } from "react";
 import { cn } from "../lib/cn";
-import { CheckIcon, ChevronRightIcon, CircleIcon, CrossIcon, SpinnerIcon } from "../lib/icons";
-import { useControllableOpen } from "../lib/use-controllable-open";
+import { CheckIcon, ChevronRightIcon, CircleIcon, CrossIcon, SpinnerIcon } from "../icons";
+import { useControllableOpen } from "../hooks/use-controllable-open";
 
 /** Matches the todo states agents commonly report, plus `failed`. */
 export type PlanTaskStatus = "pending" | "in_progress" | "completed" | "failed";

@@ -9,8 +9,8 @@ import {
 } from "react";
 import { cn } from "../lib/cn";
 import { checkFiles, type FileRejection, type FileRules } from "../lib/files";
-import { ArrowUpIcon, PaperclipIcon, StopIcon } from "../lib/icons";
-import { useIsomorphicLayoutEffect } from "../lib/use-isomorphic-layout-effect";
+import { ArrowUpIcon, PaperclipIcon, StopIcon } from "../icons";
+import { useIsomorphicLayoutEffect } from "../hooks/use-isomorphic-layout-effect";
 import { AttachmentList } from "./attachments";
 
 export interface PromptInputLabels {

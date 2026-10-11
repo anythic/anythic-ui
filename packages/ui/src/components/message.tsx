@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import { cn } from "../lib/cn";
-import { CheckIcon, CopyIcon } from "../lib/icons";
-import { useCopy } from "../lib/use-copy";
+import { CheckIcon, CopyIcon } from "../icons";
+import { useCopy } from "../hooks/use-copy";
 
 export type MessageFrom = "user" | "assistant";
 

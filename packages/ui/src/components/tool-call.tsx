@@ -1,8 +1,8 @@
 import { useId, type HTMLAttributes, type ReactNode } from "react";
 import { cn } from "../lib/cn";
 import { formatValue } from "../lib/format-value";
-import { CheckIcon, ChevronRightIcon, CircleIcon, CrossIcon, SpinnerIcon } from "../lib/icons";
-import { useControllableOpen } from "../lib/use-controllable-open";
+import { CheckIcon, ChevronRightIcon, CircleIcon, CrossIcon, SpinnerIcon } from "../icons";
+import { useControllableOpen } from "../hooks/use-controllable-open";
 
 export type ToolCallStatus = "pending" | "running" | "success" | "error";
 

@@ -1,7 +1,8 @@
-import { useEffect, useId, useRef, useState, type HTMLAttributes, type ReactNode } from "react";
+import { useEffect, useId, useRef, type HTMLAttributes, type ReactNode } from "react";
 import { cn } from "../lib/cn";
-import { ChevronRightIcon } from "../lib/icons";
-import { useControllableOpen } from "../lib/use-controllable-open";
+import { ChevronRightIcon } from "../icons";
+import { useControllableOpen } from "../hooks/use-controllable-open";
+import { useDuration } from "../hooks/use-duration";
 import { StreamingText } from "./streaming-text";
 
 export interface ReasoningLabelState {
@@ -54,32 +55,28 @@ export function ReasoningBlock({
   const contentId = useId();
   const [open, setOpen] = useControllableOpen(openProp, defaultOpen ?? streaming, onOpenChange);
 
-  const [measured, setMeasured] = useState<number>();
-  const startedAt = useRef<number | null>(null);
+  const measured = useDuration(streaming);
   const userToggled = useRef(false);
-  // Starts false so a block mounted mid-stream starts its clock too.
+  // Starts false so a block mounted mid-stream opens like a new phase.
   const wasStreaming = useRef(false);
 
   useEffect(() => {
     if (streaming && !wasStreaming.current) {
-      // A new thinking phase: restart the clock and reopen.
-      startedAt.current = Date.now();
+      // A new thinking phase: forget the user's last toggle and reopen.
       userToggled.current = false;
-      setMeasured(undefined);
       if (!open) setOpen(true);
     } else if (!streaming && wasStreaming.current) {
-      if (startedAt.current !== null) {
-        setMeasured(Math.round((Date.now() - startedAt.current) / 1000));
-      }
       if (!userToggled.current && open) setOpen(false);
     }
     wasStreaming.current = streaming;
-    // Only a change in `streaming` should open, close or time the block; `open`
+    // Only a change in `streaming` should open or close the block; `open`
     // and `setOpen` are read fresh from the render that changed it.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [streaming]);
 
-  const duration = durationProp ?? measured;
+  // Whole seconds read better in a summary than milliseconds.
+  const duration =
+    durationProp ?? (measured === undefined ? undefined : Math.round(measured / 1000));
 
   return (
     <div

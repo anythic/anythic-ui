@@ -1,8 +1,8 @@
 import { useId, type HTMLAttributes, type ReactNode } from "react";
 import { cn } from "../lib/cn";
-import { ChevronRightIcon } from "../lib/icons";
+import { ChevronRightIcon } from "../icons";
 import { hostname, safeHref } from "../lib/url";
-import { useControllableOpen } from "../lib/use-controllable-open";
+import { useControllableOpen } from "../hooks/use-controllable-open";
 import type { Source } from "./citation";
 
 export interface SourcesProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {

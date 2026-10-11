@@ -1,7 +1,7 @@
 import { useId, useState, type HTMLAttributes, type ReactNode } from "react";
 import { cn } from "../lib/cn";
 import { formatValue } from "../lib/format-value";
-import { CheckIcon, CrossIcon, SpinnerIcon } from "../lib/icons";
+import { CheckIcon, CrossIcon, SpinnerIcon } from "../icons";
 
 export type ToolApprovalStatus = "pending" | "approved" | "denied";
 

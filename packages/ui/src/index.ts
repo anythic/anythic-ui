@@ -75,7 +75,7 @@ export {
   RetryIcon,
   SpinnerIcon,
   StopIcon,
-} from "./lib/icons";
+} from "./icons";
 export { cn } from "./lib/cn";
 export type { FileRejection, FileRejectionReason, FileRules } from "./lib/files";
 export { completeMarkdown } from "./lib/complete-markdown";

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type HTMLAttributes } from "react";
 import { cn } from "../lib/cn";
-import { CheckIcon, CopyIcon } from "../lib/icons";
-import { useCopy } from "../lib/use-copy";
+import { CheckIcon, CopyIcon } from "../icons";
+import { useCopy } from "../hooks/use-copy";
 
 export interface CodeTheme {
   light: string;

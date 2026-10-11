@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type HTMLAttributes } from "react";
 import { cn } from "../lib/cn";
-import { ArrowDownIcon } from "../lib/icons";
-import { useIsomorphicLayoutEffect } from "../lib/use-isomorphic-layout-effect";
+import { ArrowDownIcon } from "../icons";
+import { useIsomorphicLayoutEffect } from "../hooks/use-isomorphic-layout-effect";
 
 export interface ConversationProps extends HTMLAttributes<HTMLDivElement> {
   /** Replaces the built-in text, e.g. for translation. */

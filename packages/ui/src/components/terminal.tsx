@@ -1,18 +1,11 @@
-import {
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-  type CSSProperties,
-  type HTMLAttributes,
-} from "react";
+import { useId, useMemo, useRef, type CSSProperties, type HTMLAttributes } from "react";
 import { parseAnsi, stripAnsi, type AnsiSegment } from "../lib/ansi";
 import { cn } from "../lib/cn";
-import { CheckIcon, ChevronRightIcon, CopyIcon, CrossIcon, SpinnerIcon } from "../lib/icons";
-import { useControllableOpen } from "../lib/use-controllable-open";
-import { useCopy } from "../lib/use-copy";
-import { useIsomorphicLayoutEffect } from "../lib/use-isomorphic-layout-effect";
+import { CheckIcon, ChevronRightIcon, CopyIcon, CrossIcon, SpinnerIcon } from "../icons";
+import { useControllableOpen } from "../hooks/use-controllable-open";
+import { useDuration } from "../hooks/use-duration";
+import { useCopy } from "../hooks/use-copy";
+import { useIsomorphicLayoutEffect } from "../hooks/use-isomorphic-layout-effect";
 
 export interface TerminalLabels {
   running: string;
@@ -202,23 +195,6 @@ function segmentStyle({ style }: AnsiSegment): CSSProperties | undefined {
     fontStyle: style.italic ? "italic" : undefined,
     textDecoration: style.underline ? "underline" : undefined,
   };
-}
-
-/** Milliseconds between `running` turning on and off, once it has. */
-function useDuration(running: boolean): number | undefined {
-  const [duration, setDuration] = useState<number>();
-  const startedAt = useRef<number | null>(null);
-  const wasRunning = useRef(false);
-  useEffect(() => {
-    if (running && !wasRunning.current) {
-      startedAt.current = Date.now();
-      setDuration(undefined);
-    } else if (!running && wasRunning.current && startedAt.current !== null) {
-      setDuration(Date.now() - startedAt.current);
-    }
-    wasRunning.current = running;
-  }, [running]);
-  return duration;
 }
 
 function formatDuration(ms: number): string {
