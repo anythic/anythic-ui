@@ -1,0 +1,3 @@
+# Keep LF line endings in the repository on every platform, so Windows
+# checkouts do not produce whole-file diffs.
+* text=auto eol=lf

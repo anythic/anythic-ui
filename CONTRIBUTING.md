@@ -4,7 +4,9 @@ Thanks for helping out! Bug reports, ideas and pull requests are all welcome.
 
 ## Setup
 
-You need Node 20.9+ and pnpm 10 (`corepack enable` picks the right version).
+You need Node 20.9+ (`.nvmrc` pins 22, which CI uses; `nvm use` picks it) and pnpm 10 (`corepack enable` picks the right version).
+
+In VS Code, accept the recommended extensions when prompted: ESLint, Prettier, Tailwind CSS IntelliSense and Vitest. The workspace settings format on save and fix lint problems on save.
 
 ```sh
 pnpm install
