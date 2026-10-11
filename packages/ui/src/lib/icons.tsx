@@ -65,3 +65,16 @@ export const StopIcon = (props: IconProps) => (
     <rect x="4" y="4" width="8" height="8" rx="1" fill="currentColor" stroke="none" />
   </Icon>
 );
+
+export const RetryIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="M2.5 8a5.5 5.5 0 1 0 1.6-3.9" />
+    <path d="M2.5 2.5v3h3" />
+  </Icon>
+);
+
+export const ArrowDownIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="M8 3v10M3.5 8.5L8 13l4.5-4.5" />
+  </Icon>
+);

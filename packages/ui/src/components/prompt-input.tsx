@@ -1,6 +1,4 @@
 import {
-  useEffect,
-  useLayoutEffect,
   useRef,
   useState,
   type KeyboardEvent,
@@ -9,6 +7,7 @@ import {
 } from "react";
 import { cn } from "../lib/cn";
 import { ArrowUpIcon, StopIcon } from "../lib/icons";
+import { useIsomorphicLayoutEffect } from "../lib/use-isomorphic-layout-effect";
 
 export interface PromptInputLabels {
   placeholder: string;
@@ -43,9 +42,6 @@ export interface PromptInputProps
   /** Replaces the built-in text, e.g. for translation. */
   labels?: Partial<PromptInputLabels>;
 }
-
-// Layout effects warn during server rendering in React 18.
-const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 const DEFAULT_LABELS: PromptInputLabels = {
   placeholder: "Send a message…",

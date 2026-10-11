@@ -1,5 +1,5 @@
+import { ChatDemo } from "./components/chat-demo";
 import { MarkdownDemo } from "./components/markdown-demo";
-import { PromptInputDemo } from "./components/prompt-input-demo";
 import { ReasoningBlockDemo } from "./components/reasoning-block-demo";
 import { StreamingTextDemo } from "./components/streaming-text-demo";
 import { ToolApprovalDemo } from "./components/tool-approval-demo";
@@ -69,13 +69,14 @@ export default function Home() {
       </section>
 
       <section className="mt-12">
-        <h2 className="text-lg font-medium">PromptInput</h2>
+        <h2 className="text-lg font-medium">Conversation, Message, PromptInput</h2>
         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-          Where the user types. Enter sends, Shift+Enter adds a line, and the
-          send button becomes a stop button while a reply streams.
+          A whole chat. The conversation follows the reply while you are at the
+          bottom and stays put when you scroll up. The send button becomes a
+          stop button while a reply streams.
         </p>
         <div className="mt-4">
-          <PromptInputDemo />
+          <ChatDemo />
         </div>
       </section>
     </main>

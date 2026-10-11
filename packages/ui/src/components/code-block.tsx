@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type HTMLAttributes } from "react";
 import { cn } from "../lib/cn";
 import { CheckIcon, CopyIcon } from "../lib/icons";
+import { useCopy } from "../lib/use-copy";
 
 export interface CodeTheme {
   light: string;
@@ -44,22 +45,7 @@ export function CodeBlock({
 }: CodeBlockProps) {
   const labels = { ...DEFAULT_LABELS, ...labelsProp };
   const html = useHighlightedHtml(code, language, theme);
-  const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    if (!copied) return;
-    const timer = setTimeout(() => setCopied(false), 2000);
-    return () => clearTimeout(timer);
-  }, [copied]);
-
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(code);
-      setCopied(true);
-    } catch {
-      // Clipboard access can be denied; there is nothing useful to show.
-    }
-  };
+  const { copied, copy } = useCopy();
 
   return (
     <div
@@ -75,7 +61,7 @@ export function CodeBlock({
         {copyable && (
           <button
             type="button"
-            onClick={copy}
+            onClick={() => copy(code)}
             className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 hover:bg-zinc-200 hover:text-zinc-900 focus-visible:outline-2 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
           >
             {copied ? <CheckIcon className="size-3.5" /> : <CopyIcon className="size-3.5" />}
