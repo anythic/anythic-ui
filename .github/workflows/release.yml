@@ -14,7 +14,7 @@ concurrency:
 permissions:
   contents: write # push the version commit and tags
   pull-requests: write # open the "Version Packages" pull request
-  id-token: write # npm provenance
+  id-token: write # npm trusted publishing (OIDC) and provenance
 
 jobs:
   release:
@@ -32,9 +32,14 @@ jobs:
           cache: pnpm
           registry-url: https://registry.npmjs.org
       - run: pnpm install --frozen-lockfile
+      # pnpm hands the upload to the npm CLI, and trusted publishing needs
+      # npm 11.5.1 or later; Node 22 ships npm 10. (npm 12 needs a newer Node 22.)
+      - run: npm install --global npm@11
       # With pending changesets, this opens or updates a "Version Packages"
       # pull request. Merging that pull request runs this again with no
-      # changesets left, and then it publishes to npm.
+      # changesets left, and then it publishes to npm. Publishing uses npm
+      # trusted publishing: npm accepts this workflow by its OIDC identity,
+      # so no npm token is stored anywhere.
       - uses: changesets/action@v1
         with:
           version: pnpm version-packages
@@ -43,8 +48,6 @@ jobs:
           commit: "Version Packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Tag and release the published version
         run: node scripts/github-release.mjs
         env:
