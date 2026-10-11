@@ -13,8 +13,10 @@ export interface ToolApprovalLabels {
   denied: string;
 }
 
-export interface ToolApprovalProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "title"> {
+export interface ToolApprovalProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "children" | "title"
+> {
   /** The tool's name as the model called it, e.g. `delete_file`. */
   name: string;
   /** Whether the user has decided yet. You own this state. */

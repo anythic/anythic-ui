@@ -93,19 +93,21 @@ let highlighter: Promise<Highlight> | undefined;
 
 /** Loads Shiki on first use, so apps that never show code never fetch it. */
 function loadHighlighter(): Promise<Highlight> {
-  highlighter ??= import("shiki").then(({ codeToHtml, bundledLanguages, bundledLanguagesAlias }) => {
-    return (code, language, theme) => {
-      const lang =
-        language && (language in bundledLanguages || language in bundledLanguagesAlias)
-          ? language
-          : "text";
-      return codeToHtml(code, {
-        lang,
-        themes: { light: theme.light, dark: theme.dark },
-        defaultColor: false,
-      });
-    };
-  });
+  highlighter ??= import("shiki").then(
+    ({ codeToHtml, bundledLanguages, bundledLanguagesAlias }) => {
+      return (code, language, theme) => {
+        const lang =
+          language && (language in bundledLanguages || language in bundledLanguagesAlias)
+            ? language
+            : "text";
+        return codeToHtml(code, {
+          lang,
+          themes: { light: theme.light, dark: theme.dark },
+          defaultColor: false,
+        });
+      };
+    },
+  );
   return highlighter;
 }
 

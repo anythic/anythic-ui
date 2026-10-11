@@ -113,7 +113,11 @@ export function LiveChat() {
             className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-400"
           >
             {readableError(error)}{" "}
-            <button type="button" onClick={() => void regenerate()} className="font-medium underline">
+            <button
+              type="button"
+              onClick={() => void regenerate()}
+              className="font-medium underline"
+            >
               Try again
             </button>
           </div>

@@ -1,11 +1,4 @@
-import {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type HTMLAttributes,
-  type ReactNode,
-} from "react";
+import { useEffect, useId, useRef, useState, type HTMLAttributes, type ReactNode } from "react";
 import { cn } from "../lib/cn";
 import { ChevronRightIcon } from "../lib/icons";
 import { useControllableOpen } from "../lib/use-controllable-open";
@@ -17,8 +10,7 @@ export interface ReasoningLabelState {
   duration: number | undefined;
 }
 
-export interface ReasoningBlockProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+export interface ReasoningBlockProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   /** The reasoning text received so far. */
   text: string;
   /** Whether the model is still thinking. */
@@ -60,11 +52,7 @@ export function ReasoningBlock({
   ...props
 }: ReasoningBlockProps) {
   const contentId = useId();
-  const [open, setOpen] = useControllableOpen(
-    openProp,
-    defaultOpen ?? streaming,
-    onOpenChange,
-  );
+  const [open, setOpen] = useControllableOpen(openProp, defaultOpen ?? streaming, onOpenChange);
 
   const [measured, setMeasured] = useState<number>();
   const startedAt = useRef<number | null>(null);
@@ -110,9 +98,7 @@ export function ReasoningBlock({
         <span className={cn(streaming && "animate-pulse motion-reduce:animate-none")}>
           {label({ streaming, duration })}
         </span>
-        <ChevronRightIcon
-          className={cn("size-3.5 transition-transform", open && "rotate-90")}
-        />
+        <ChevronRightIcon className={cn("size-3.5 transition-transform", open && "rotate-90")} />
       </button>
       <div
         id={contentId}

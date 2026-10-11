@@ -64,8 +64,10 @@ export function MessageAction({ label, className, children, ...props }: MessageA
   );
 }
 
-export interface MessageCopyButtonProps
-  extends Omit<MessageActionProps, "label" | "onClick" | "children"> {
+export interface MessageCopyButtonProps extends Omit<
+  MessageActionProps,
+  "label" | "onClick" | "children"
+> {
   /** The text to copy, usually the message's markdown source. */
   text: string;
   /** Replaces the built-in text, e.g. for translation. */

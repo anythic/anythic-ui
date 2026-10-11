@@ -50,11 +50,7 @@ function findOpenFence(text: string): string | undefined {
       // Backtick fences cannot have backticks in their info string.
       if (fence[0] === "`" && info.includes("`")) continue;
       open = { char: fence[0]!, length: fence.length };
-    } else if (
-      fence[0] === open.char &&
-      fence.length >= open.length &&
-      info.trim() === ""
-    ) {
+    } else if (fence[0] === open.char && fence.length >= open.length && info.trim() === "") {
       open = undefined;
     }
   }

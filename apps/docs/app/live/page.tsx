@@ -16,8 +16,8 @@ export default function LivePage() {
         <a href="https://ai-sdk.dev" className="underline underline-offset-2">
           AI SDK
         </a>
-        . Reasoning, tool calls, approvals and the answer all render with
-        anythic/ui. Switching providers changes one line on the server, not the UI.
+        . Reasoning, tool calls, approvals and the answer all render with anythic/ui. Switching
+        providers changes one line on the server, not the UI.
       </p>
       <div className="mt-8">
         <LiveChat />

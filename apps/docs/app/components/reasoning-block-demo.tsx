@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  ReasoningBlock,
-  StreamingText,
-  useTextStream,
-  type TextStreamSource,
-} from "@anythic/ui";
+import { ReasoningBlock, StreamingText, useTextStream, type TextStreamSource } from "@anythic/ui";
 import { useEffect, useState } from "react";
 import { fakeStream } from "../../lib/fake-stream";
 

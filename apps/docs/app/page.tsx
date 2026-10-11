@@ -11,8 +11,8 @@ export default function Home() {
     <main className="mx-auto max-w-2xl px-4 py-16">
       <h1 className="text-3xl font-semibold tracking-tight">anythic/ui</h1>
       <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-        AI-native UI primitives for autonomous agents, streaming reasoning, and
-        developer interfaces.
+        AI-native UI primitives for autonomous agents, streaming reasoning, and developer
+        interfaces.
       </p>
       <Link
         href="/live"
@@ -34,9 +34,8 @@ export default function Home() {
       <section className="mt-12">
         <h2 className="text-lg font-medium">Markdown</h2>
         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-          Model output as markdown, with highlighted code. Syntax cut off
-          mid-stream is closed, so bold text and code never flash as raw
-          markers.
+          Model output as markdown, with highlighted code. Syntax cut off mid-stream is closed, so
+          bold text and code never flash as raw markers.
         </p>
         <div className="mt-4">
           <MarkdownDemo />
@@ -46,8 +45,7 @@ export default function Home() {
       <section className="mt-12">
         <h2 className="text-lg font-medium">ReasoningBlock</h2>
         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-          Shows the model thinking, then collapses to a summary once the answer
-          starts.
+          Shows the model thinking, then collapses to a summary once the answer starts.
         </p>
         <div className="mt-4">
           <ReasoningBlockDemo />
@@ -57,8 +55,8 @@ export default function Home() {
       <section className="mt-12">
         <h2 className="text-lg font-medium">ToolCall</h2>
         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-          A tool the agent called, with its status. Open one to see the input
-          and output, or the error.
+          A tool the agent called, with its status. Open one to see the input and output, or the
+          error.
         </p>
         <div className="mt-4">
           <ToolCallDemo />
@@ -78,9 +76,8 @@ export default function Home() {
       <section className="mt-12">
         <h2 className="text-lg font-medium">Conversation, Message, PromptInput</h2>
         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-          A whole chat. The conversation follows the reply while you are at the
-          bottom and stays put when you scroll up. The send button becomes a
-          stop button while a reply streams.
+          A whole chat. The conversation follows the reply while you are at the bottom and stays put
+          when you scroll up. The send button becomes a stop button while a reply streams.
         </p>
         <div className="mt-4">
           <ChatDemo />

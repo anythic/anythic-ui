@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Markdown,
-  ReasoningBlock,
-  ToolApproval,
-  ToolCall,
-  type ToolCallStatus,
-} from "@anythic/ui";
+import { Markdown, ReasoningBlock, ToolApproval, ToolCall, type ToolCallStatus } from "@anythic/ui";
 import {
   getToolName,
   isReasoningUIPart,

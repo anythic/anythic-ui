@@ -1,19 +1,12 @@
 import { useId, type HTMLAttributes, type ReactNode } from "react";
 import { cn } from "../lib/cn";
 import { formatValue } from "../lib/format-value";
-import {
-  CheckIcon,
-  ChevronRightIcon,
-  CircleIcon,
-  CrossIcon,
-  SpinnerIcon,
-} from "../lib/icons";
+import { CheckIcon, ChevronRightIcon, CircleIcon, CrossIcon, SpinnerIcon } from "../lib/icons";
 import { useControllableOpen } from "../lib/use-controllable-open";
 
 export type ToolCallStatus = "pending" | "running" | "success" | "error";
 
-export interface ToolCallProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "title"> {
+export interface ToolCallProps extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "title"> {
   /** The tool's name as the model called it, e.g. `web_search`. */
   name: string;
   status: ToolCallStatus;
@@ -43,9 +36,7 @@ const DEFAULT_STATUS_LABELS: Record<ToolCallStatus, string> = {
 
 const STATUS_ICONS: Record<ToolCallStatus, ReactNode> = {
   pending: <CircleIcon className="size-4 text-zinc-400" />,
-  running: (
-    <SpinnerIcon className="size-4 animate-spin text-zinc-500 motion-reduce:animate-none" />
-  ),
+  running: <SpinnerIcon className="size-4 animate-spin text-zinc-500 motion-reduce:animate-none" />,
   success: <CheckIcon className="size-4 text-emerald-600 dark:text-emerald-500" />,
   error: <CrossIcon className="size-4 text-red-600 dark:text-red-500" />,
 };
@@ -91,10 +82,7 @@ export function ToolCall({
     <div
       data-state={open ? "open" : "closed"}
       data-status={status}
-      className={cn(
-        "rounded-lg border border-zinc-200 text-sm dark:border-zinc-800",
-        className,
-      )}
+      className={cn("rounded-lg border border-zinc-200 text-sm dark:border-zinc-800", className)}
       {...props}
     >
       {hasDetails ? (
@@ -149,9 +137,7 @@ function Section({
 }) {
   return (
     <div>
-      <div className="mb-1 text-xs font-medium uppercase tracking-wide text-zinc-500">
-        {label}
-      </div>
+      <div className="mb-1 text-xs font-medium uppercase tracking-wide text-zinc-500">{label}</div>
       <div
         className={cn(
           "max-h-64 overflow-auto whitespace-pre-wrap break-words rounded-md bg-zinc-50 p-2 font-mono text-xs dark:bg-zinc-900",

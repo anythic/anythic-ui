@@ -15,11 +15,10 @@ export interface PromptInputLabels {
   stop: string;
 }
 
-export interface PromptInputProps
-  extends Omit<
-    TextareaHTMLAttributes<HTMLTextAreaElement>,
-    "value" | "defaultValue" | "onChange" | "onSubmit" | "placeholder" | "className"
-  > {
+export interface PromptInputProps extends Omit<
+  TextareaHTMLAttributes<HTMLTextAreaElement>,
+  "value" | "defaultValue" | "onChange" | "onSubmit" | "placeholder" | "className"
+> {
   /** Controlled text. Pair with `onValueChange`; you clear it after submit. */
   value?: string;
   /** Initial text when uncontrolled. Uncontrolled input clears on submit. */

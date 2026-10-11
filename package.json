@@ -6,10 +6,16 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "test": "turbo run test",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
+    "prettier": "^3.9.10",
     "turbo": "^2.11.7",
     "typescript": "~5.9.3"
+  },
+  "engines": {
+    "node": ">=20.9"
   }
 }

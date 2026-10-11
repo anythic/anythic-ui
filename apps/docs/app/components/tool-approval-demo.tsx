@@ -48,9 +48,7 @@ export function ToolApprovalDemo() {
           className="mt-2"
         />
       )}
-      {status === "denied" && (
-        <p className="mt-3 text-sm">Okay, I left the file alone.</p>
-      )}
+      {status === "denied" && <p className="mt-3 text-sm">Okay, I left the file alone.</p>}
       {status !== "pending" && (
         <button
           type="button"

@@ -20,7 +20,10 @@ describe("Markdown", () => {
       <Markdown>{'<img src=x onerror="alert(1)">\n\n[click](javascript:alert(1))'}</Markdown>,
     );
     expect(container.querySelector("img")).toBeNull();
-    expect(screen.getByText("click")).not.toHaveAttribute("href", expect.stringContaining("javascript"));
+    expect(screen.getByText("click")).not.toHaveAttribute(
+      "href",
+      expect.stringContaining("javascript"),
+    );
   });
 
   it("opens links in a new tab without leaking the opener", () => {

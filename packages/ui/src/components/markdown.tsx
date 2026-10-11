@@ -53,7 +53,10 @@ export function Markdown({
     <div
       aria-busy={streaming}
       data-streaming={streaming || undefined}
-      className={cn("break-words leading-relaxed [&>:first-child]:mt-0 [&>:last-child]:mb-0", className)}
+      className={cn(
+        "break-words leading-relaxed [&>:first-child]:mt-0 [&>:last-child]:mb-0",
+        className,
+      )}
       {...props}
     >
       <CodeThemeContext.Provider value={codeTheme}>

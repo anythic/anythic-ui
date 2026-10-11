@@ -26,9 +26,7 @@ describe("ToolApproval", () => {
   it("calls the matching handler", () => {
     const onApprove = vi.fn();
     const onDeny = vi.fn();
-    render(
-      <ToolApproval name="x" status="pending" onApprove={onApprove} onDeny={onDeny} />,
-    );
+    render(<ToolApproval name="x" status="pending" onApprove={onApprove} onDeny={onDeny} />);
     fireEvent.click(button("Deny"));
     expect(onDeny).toHaveBeenCalledOnce();
     expect(onApprove).not.toHaveBeenCalled();

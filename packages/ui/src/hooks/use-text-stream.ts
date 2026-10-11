@@ -2,9 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 /** Anything that yields text chunks: an async generator, or a fetch body. */
 export type TextStreamSource =
-  | AsyncIterable<string>
-  | ReadableStream<string>
-  | ReadableStream<Uint8Array>;
+  AsyncIterable<string> | ReadableStream<string> | ReadableStream<Uint8Array>;
 
 export type TextStreamStatus = "idle" | "streaming" | "done" | "stopped" | "error";
 
@@ -36,9 +34,7 @@ const IDLE: TextStreamState = { text: "", status: "idle", error: undefined };
  * `useTextStream(fetchReply())`, hands over a new stream every render and
  * restarts forever.
  */
-export function useTextStream(
-  source: TextStreamSource | null | undefined,
-): TextStreamResult {
+export function useTextStream(source: TextStreamSource | null | undefined): TextStreamResult {
   const [state, setState] = useState<TextStreamState>(IDLE);
   const cancelRef = useRef<(() => void) | null>(null);
 
@@ -89,10 +85,7 @@ export function useTextStream(
 }
 
 /** Normalises every supported source into an async generator of strings. */
-async function* readChunks(
-  source: TextStreamSource,
-  signal: AbortSignal,
-): AsyncGenerator<string> {
+async function* readChunks(source: TextStreamSource, signal: AbortSignal): AsyncGenerator<string> {
   if (!(source instanceof ReadableStream)) {
     yield* source;
     return;
@@ -109,9 +102,7 @@ async function* readChunks(
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
-      yield typeof value === "string"
-        ? value
-        : decoder.decode(value, { stream: true });
+      yield typeof value === "string" ? value : decoder.decode(value, { stream: true });
     }
     const tail = decoder.decode();
     if (tail) yield tail;

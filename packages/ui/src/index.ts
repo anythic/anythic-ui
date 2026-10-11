@@ -39,11 +39,7 @@ export {
   type ToolApprovalProps,
   type ToolApprovalStatus,
 } from "./components/tool-approval";
-export {
-  ToolCall,
-  type ToolCallProps,
-  type ToolCallStatus,
-} from "./components/tool-call";
+export { ToolCall, type ToolCallProps, type ToolCallStatus } from "./components/tool-call";
 export {
   ArrowDownIcon,
   ArrowUpIcon,
