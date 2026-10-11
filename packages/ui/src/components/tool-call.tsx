@@ -1,5 +1,6 @@
 import { useId, type HTMLAttributes, type ReactNode } from "react";
 import { cn } from "../lib/cn";
+import { formatValue } from "../lib/format-value";
 import {
   CheckIcon,
   ChevronRightIcon,
@@ -161,14 +162,4 @@ function Section({
       </div>
     </div>
   );
-}
-
-function formatValue(value: unknown): string {
-  if (typeof value === "string") return value;
-  try {
-    return JSON.stringify(value, null, 2) ?? String(value);
-  } catch {
-    // Circular structures and BigInt cannot be serialised.
-    return String(value);
-  }
 }

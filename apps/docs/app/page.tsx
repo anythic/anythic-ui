@@ -1,5 +1,6 @@
 import { ReasoningBlockDemo } from "./components/reasoning-block-demo";
 import { StreamingTextDemo } from "./components/streaming-text-demo";
+import { ToolApprovalDemo } from "./components/tool-approval-demo";
 import { ToolCallDemo } from "./components/tool-call-demo";
 
 export default function Home() {
@@ -40,6 +41,16 @@ export default function Home() {
         </p>
         <div className="mt-4">
           <ToolCallDemo />
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-lg font-medium">ToolApproval</h2>
+        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+          Lets the user approve or deny an action before the agent runs it.
+        </p>
+        <div className="mt-4">
+          <ToolApprovalDemo />
         </div>
       </section>
     </main>

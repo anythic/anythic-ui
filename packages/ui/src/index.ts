@@ -11,6 +11,12 @@ export {
   type TextStreamStatus,
 } from "./hooks/use-text-stream";
 export {
+  ToolApproval,
+  type ToolApprovalLabels,
+  type ToolApprovalProps,
+  type ToolApprovalStatus,
+} from "./components/tool-approval";
+export {
   ToolCall,
   type ToolCallProps,
   type ToolCallStatus,
