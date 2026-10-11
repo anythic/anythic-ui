@@ -1,4 +1,11 @@
 export {
+  CodeBlock,
+  type CodeBlockLabels,
+  type CodeBlockProps,
+  type CodeTheme,
+} from "./components/code-block";
+export { Markdown, type MarkdownProps } from "./components/markdown";
+export {
   ReasoningBlock,
   type ReasoningBlockProps,
   type ReasoningLabelState,
@@ -22,3 +29,4 @@ export {
   type ToolCallStatus,
 } from "./components/tool-call";
 export { cn } from "./lib/cn";
+export { completeMarkdown } from "./lib/complete-markdown";

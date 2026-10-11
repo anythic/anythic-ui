@@ -24,6 +24,14 @@ export function Reply({ response }: { response: Response }) {
 
 `useTextStream` accepts an async iterable of strings or a `ReadableStream` of strings or bytes, such as a fetch response body.
 
+For markdown replies, swap `StreamingText` for `Markdown`. While `streaming` is true it closes syntax the stream cut off, such as an open code fence or `**bold`, so partial output renders cleanly:
+
+```tsx
+<Markdown streaming={status === "streaming"}>{text}</Markdown>
+```
+
+Code blocks are highlighted with [Shiki](https://shiki.style), which is loaded on first use.
+
 Components are styled with Tailwind CSS v4. Tell Tailwind to scan the package from your stylesheet:
 
 ```css

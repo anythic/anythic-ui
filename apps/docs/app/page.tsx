@@ -1,3 +1,4 @@
+import { MarkdownDemo } from "./components/markdown-demo";
 import { ReasoningBlockDemo } from "./components/reasoning-block-demo";
 import { StreamingTextDemo } from "./components/streaming-text-demo";
 import { ToolApprovalDemo } from "./components/tool-approval-demo";
@@ -19,6 +20,18 @@ export default function Home() {
         </p>
         <div className="mt-4">
           <StreamingTextDemo />
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-lg font-medium">Markdown</h2>
+        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+          Model output as markdown, with highlighted code. Syntax cut off
+          mid-stream is closed, so bold text and code never flash as raw
+          markers.
+        </p>
+        <div className="mt-4">
+          <MarkdownDemo />
         </div>
       </section>
 
