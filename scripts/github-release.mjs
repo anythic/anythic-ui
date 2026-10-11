@@ -24,9 +24,12 @@ const succeeds = (command, args) => {
 const { name, version } = JSON.parse(readFileSync(`${PACKAGE_DIR}/package.json`, "utf8"));
 const tag = `${name}@${version}`;
 
-// Only versions that actually reached npm get a tag and a release.
-if (!succeeds("npm", ["view", `${name}@${version}`, "version"])) {
-  console.log(`${tag} is not on npm yet; nothing to do.`);
+// Only versions that actually reached npm get a tag and a release. A tag
+// that `changeset publish` just created in this checkout is proof enough;
+// otherwise ask npm, which can take a little while to list a new version.
+const taggedByPublish = succeeds("git", ["rev-parse", "--verify", "--quiet", `refs/tags/${tag}`]);
+if (!taggedByPublish && !(await isOnNpm(`${name}@${version}`))) {
+  console.log(`${tag} is not on npm; nothing to do.`);
   process.exit(0);
 }
 
@@ -65,6 +68,15 @@ run("gh", [
   changelogSection(version),
 ]);
 console.log(`Created release ${tag}.`);
+
+/** Whether npm lists the version, retrying for about two minutes. */
+async function isOnNpm(spec) {
+  for (const delay of [0, 5, 10, 20, 30, 60]) {
+    await new Promise((resolve) => setTimeout(resolve, delay * 1000));
+    if (succeeds("npm", ["view", spec, "version"])) return true;
+  }
+  return false;
+}
 
 /** The body of `## <version>` in the package's CHANGELOG. */
 function changelogSection(target) {
