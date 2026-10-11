@@ -10,4 +10,9 @@ export {
   type TextStreamState,
   type TextStreamStatus,
 } from "./hooks/use-text-stream";
+export {
+  ToolCall,
+  type ToolCallProps,
+  type ToolCallStatus,
+} from "./components/tool-call";
 export { cn } from "./lib/cn";

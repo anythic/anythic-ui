@@ -7,6 +7,8 @@ import {
   type ReactNode,
 } from "react";
 import { cn } from "../lib/cn";
+import { ChevronRightIcon } from "../lib/icons";
+import { useControllableOpen } from "../lib/use-controllable-open";
 import { StreamingText } from "./streaming-text";
 
 export interface ReasoningLabelState {
@@ -58,13 +60,11 @@ export function ReasoningBlock({
   ...props
 }: ReasoningBlockProps) {
   const contentId = useId();
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen ?? streaming);
-  const open = openProp ?? uncontrolledOpen;
-
-  const setOpen = (next: boolean) => {
-    if (openProp === undefined) setUncontrolledOpen(next);
-    onOpenChange?.(next);
-  };
+  const [open, setOpen] = useControllableOpen(
+    openProp,
+    defaultOpen ?? streaming,
+    onOpenChange,
+  );
 
   const [measured, setMeasured] = useState<number>();
   const startedAt = useRef<number | null>(null);
@@ -110,18 +110,9 @@ export function ReasoningBlock({
         <span className={cn(streaming && "animate-pulse motion-reduce:animate-none")}>
           {label({ streaming, duration })}
         </span>
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 16 16"
+        <ChevronRightIcon
           className={cn("size-3.5 transition-transform", open && "rotate-90")}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M6 4l4 4-4 4" />
-        </svg>
+        />
       </button>
       <div
         id={contentId}

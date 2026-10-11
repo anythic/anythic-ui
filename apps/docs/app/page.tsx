@@ -1,5 +1,6 @@
 import { ReasoningBlockDemo } from "./components/reasoning-block-demo";
 import { StreamingTextDemo } from "./components/streaming-text-demo";
+import { ToolCallDemo } from "./components/tool-call-demo";
 
 export default function Home() {
   return (
@@ -28,6 +29,17 @@ export default function Home() {
         </p>
         <div className="mt-4">
           <ReasoningBlockDemo />
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-lg font-medium">ToolCall</h2>
+        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+          A tool the agent called, with its status. Open one to see the input
+          and output, or the error.
+        </p>
+        <div className="mt-4">
+          <ToolCallDemo />
         </div>
       </section>
     </main>
