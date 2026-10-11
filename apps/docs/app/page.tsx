@@ -1,3 +1,4 @@
+import { ReasoningBlockDemo } from "./components/reasoning-block-demo";
 import { StreamingTextDemo } from "./components/streaming-text-demo";
 
 export default function Home() {
@@ -16,6 +17,17 @@ export default function Home() {
         </p>
         <div className="mt-4">
           <StreamingTextDemo />
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-lg font-medium">ReasoningBlock</h2>
+        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+          Shows the model thinking, then collapses to a summary once the answer
+          starts.
+        </p>
+        <div className="mt-4">
+          <ReasoningBlockDemo />
         </div>
       </section>
     </main>
