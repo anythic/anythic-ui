@@ -7,6 +7,7 @@ import { ReasoningBlockDemo } from "./components/reasoning-block-demo";
 import { SourcesDemo } from "./components/sources-demo";
 import { StreamingTextDemo } from "./components/streaming-text-demo";
 import { ToolApprovalDemo } from "./components/tool-approval-demo";
+import { TerminalDemo } from "./components/terminal-demo";
 import { ThemePicker } from "./components/theme-picker";
 import { ToolCallDemo } from "./components/tool-call-demo";
 
@@ -101,6 +102,17 @@ export default function Home() {
         </p>
         <div className="mt-4">
           <CodeDiffDemo />
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-lg font-medium">Terminal</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          A command and its streaming output, with ANSI colors, progress bars that redraw their
+          line, the exit code and how long it took.
+        </p>
+        <div className="mt-4">
+          <TerminalDemo />
         </div>
       </section>
 

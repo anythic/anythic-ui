@@ -34,6 +34,8 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-success: var(--success);
   --color-warning: var(--warning);
+  --color-terminal: var(--terminal);
+  --color-terminal-foreground: var(--terminal-foreground);
 }
 
 @layer base {
@@ -52,6 +54,9 @@
     --destructive-foreground: oklch(0.985 0 0);
     --success: oklch(0.596 0.145 163.225);
     --warning: oklch(0.666 0.179 58.318);
+    /* Dark in both modes: ANSI colors are designed for a dark background. */
+    --terminal: oklch(0.21 0.006 285.885);
+    --terminal-foreground: oklch(0.92 0.004 286.32);
   }
 
   .dark,

@@ -48,6 +48,7 @@ export {
   type TextStreamState,
   type TextStreamStatus,
 } from "./hooks/use-text-stream";
+export { Terminal, type TerminalLabels, type TerminalProps } from "./components/terminal";
 export {
   ToolApproval,
   type ToolApprovalLabels,
@@ -72,3 +73,4 @@ export {
 export { cn } from "./lib/cn";
 export type { FileRejection, FileRejectionReason, FileRules } from "./lib/files";
 export { completeMarkdown } from "./lib/complete-markdown";
+export { parseAnsi, stripAnsi, type AnsiSegment, type AnsiStyle } from "./lib/ansi";
