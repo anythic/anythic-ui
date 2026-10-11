@@ -12,11 +12,13 @@
     "format:check": "prettier --check .",
     "changeset": "changeset",
     "version-packages": "changeset version && prettier --write \"**/CHANGELOG.md\" --ignore-unknown",
-    "release": "turbo run build --filter=@anythic/ui && changeset publish"
+    "release": "turbo run build --filter=@anythic/ui && changeset publish",
+    "screenshots": "node scripts/screenshots.mjs"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.1",
     "@changesets/cli": "^3.0.3",
+    "playwright": "^1.64.0",
     "prettier": "^3.9.10",
     "turbo": "^2.11.7",
     "typescript": "~5.9.3"
