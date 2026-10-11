@@ -1,5 +1,11 @@
 # @anythic/ui
 
+## 0.1.1
+
+### Patch Changes
+
+- [`b8d9781`](https://github.com/anythic/anythic-ui/commit/b8d9781984daa77fcb50b1cb3c412b948763ba40) Thanks [@ozoduwdev](https://github.com/ozoduwdev)! - The npm page now has screenshots, a "why" section, a component overview and a composed example.
+
 ## 0.1.0
 
 ### Minor Changes
