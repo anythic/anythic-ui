@@ -118,6 +118,9 @@ function usePreviewUrl(item: File | Attachment): string | undefined {
   useEffect(() => {
     if (!isFile || !item.type.startsWith("image/")) return;
     const url = URL.createObjectURL(item);
+    // The blob URL is an external resource: it has to be created and revoked
+    // with the effect, so it cannot be derived during render.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setBlobUrl(url);
     return () => {
       URL.revokeObjectURL(url);

@@ -1,4 +1,4 @@
-import { useId, type HTMLAttributes } from "react";
+import { useId, useState, type HTMLAttributes } from "react";
 import { cn } from "../lib/cn";
 
 export interface ContextUsageBreakdown {
@@ -56,7 +56,8 @@ const BREAKDOWN_KEYS = ["input", "cachedInput", "output", "reasoning"] as const;
 
 /**
  * How full the model's context window is: a small ring and percentage that
- * open into details (tokens by kind, and cost) on hover or keyboard focus.
+ * open into details (tokens by kind, and cost) on hover or keyboard focus,
+ * or stay open after a click or tap.
  * It turns to a warning, then danger, as the window fills.
  */
 export function ContextUsage({
@@ -74,6 +75,9 @@ export function ContextUsage({
   ...props
 }: ContextUsageProps) {
   const detailsId = useId();
+  // Hover and focus show the details; a click pins them open, which is how
+  // touch screens, with no hover, get to see them.
+  const [pinned, setPinned] = useState(false);
   const labels = { ...DEFAULT_LABELS, ...labelsProp };
   const share = limit > 0 ? Math.min(1, Math.max(0, used / limit)) : 0;
   const percent = Math.round(share * 100);
@@ -104,15 +108,15 @@ export function ContextUsage({
 
   return (
     <span className={cn("group/usage relative inline-flex", className)} {...props}>
-      <span
-        role="meter"
-        tabIndex={0}
-        aria-label={labels.title}
-        aria-valuemin={0}
-        aria-valuemax={limit}
-        aria-valuenow={Math.min(used, limit)}
-        aria-valuetext={`${summary}, ${percent}%`}
-        aria-describedby={detailsId}
+      <button
+        type="button"
+        aria-label={`${labels.title}: ${summary}, ${percent}%`}
+        aria-expanded={pinned}
+        aria-controls={detailsId}
+        onClick={() => setPinned(!pinned)}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") setPinned(false);
+        }}
         data-level={level}
         className="inline-flex items-center gap-1.5 rounded-md px-1.5 py-1 text-xs tabular-nums text-muted-foreground hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-ring"
       >
@@ -138,12 +142,12 @@ export function ContextUsage({
           />
         </svg>
         <span className={cn(level !== "normal" && tone)}>{percent}%</span>
-      </span>
+      </button>
       <span
         id={detailsId}
-        role="tooltip"
         className={cn(
-          "pointer-events-none absolute right-0 z-10 hidden w-64 rounded-lg border border-border bg-background p-3 text-left text-xs text-foreground shadow-lg group-focus-within/usage:block group-hover/usage:block",
+          pinned ? "block" : "hidden",
+          "pointer-events-none absolute right-0 z-10 w-64 rounded-lg border border-border bg-background p-3 text-left text-xs text-foreground shadow-lg group-focus-within/usage:block group-hover/usage:block",
           side === "top" ? "bottom-full mb-2" : "top-full mt-2",
         )}
       >

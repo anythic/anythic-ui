@@ -43,9 +43,14 @@ export function Citation({ source, index, className, ...props }: CitationProps) 
           {index}
         </a>
       ) : (
-        <span aria-describedby={previewId} tabIndex={0} className={chipClass}>
+        // No safe link to follow, but still focusable so keyboard users get the preview.
+        <button
+          type="button"
+          aria-describedby={previewId}
+          className={cn(chipClass, "focus-visible:outline-2 focus-visible:outline-ring")}
+        >
           {index}
-        </span>
+        </button>
       )}
       <span
         id={previewId}

@@ -56,10 +56,14 @@ function color256(n: number): string | undefined {
 export function parseAnsi(input: string): AnsiSegment[][] {
   // Streamed output can end mid-sequence ("\x1b[3"); hide the fragment until
   // the rest arrives instead of showing it as text for a moment.
+  // Terminal escape codes are control characters; matching them is the point.
+  // eslint-disable-next-line no-control-regex
   const text = input.replace(/\x1b(?:\[[0-9;?]*|\][^\x07\x1b]*)?$/, "");
   const lines: AnsiSegment[][] = [[]];
   let style: AnsiStyle = {};
   // Escape sequences: CSI (ESC [ ... final byte) and OSC (ESC ] ... BEL or ST).
+  // Terminal escape codes are control characters; matching them is the point.
+  // eslint-disable-next-line no-control-regex
   const pattern = /\x1b\[([0-9;?]*)([@-~])|\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)|\x1b[@-_]|\r\n|\r|\n/g;
   let last = 0;
 

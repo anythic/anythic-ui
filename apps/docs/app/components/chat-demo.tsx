@@ -12,7 +12,7 @@ import {
   useTextStream,
   type TextStreamSource,
 } from "@anythic/ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { fakeStream } from "../../lib/fake-stream";
 
 type Turn = { from: "user" | "assistant"; text: string; files?: File[] };
@@ -49,30 +49,25 @@ export function ChatDemo() {
   const { text, status, stop } = useTextStream(source);
   const streaming = status === "streaming";
 
-  // Move the finished (or stopped) reply into the history.
-  useEffect(() => {
-    if (status !== "done" && status !== "stopped") return;
-    setTurns((prev) => [...prev, { from: "assistant", text }]);
-    setSource(null);
-  }, [status, text]);
-
+  // The latest reply lives in the stream; it joins `turns` when the next
+  // message is sent, so there is nothing to copy over when a stream ends.
   const send = (prompt: string, files: File[]) => {
     setNotice("");
-    setTurns((prev) => [...prev, { from: "user", text: prompt, files }]);
+    const latest: Turn[] = status === "idle" ? [] : [{ from: "assistant", text }];
+    setTurns((prev) => [...prev, ...latest, { from: "user", text: prompt, files }]);
     setSource(fakeStream(reply(prompt, files), 40));
   };
 
+  // turns always ends with the prompt the latest reply answers.
   const retry = () => {
-    const lastPrompt = [...turns].reverse().find((turn) => turn.from === "user");
-    if (!lastPrompt) return;
-    setTurns((prev) => prev.slice(0, -1));
-    setSource(fakeStream(reply(lastPrompt.text, lastPrompt.files ?? []), 40));
+    const prompt = turns.at(-1);
+    if (prompt) setSource(fakeStream(reply(prompt.text, prompt.files ?? []), 40));
   };
 
   return (
     <div className="flex h-[480px] flex-col rounded-lg border border-border">
       <Conversation className="flex-1">
-        {turns.length === 0 && !streaming && (
+        {turns.length === 0 && status === "idle" && (
           <p className="text-sm text-muted-foreground">Say something to start.</p>
         )}
         {turns.map((turn, i) =>
@@ -84,27 +79,26 @@ export function ChatDemo() {
               {turn.text}
             </Message>
           ) : (
-            <Message
-              key={i}
-              from="assistant"
-              actions={
-                <>
-                  <MessageCopyButton text={turn.text} />
-                  {i === turns.length - 1 && !streaming && (
-                    <MessageAction label="Retry" onClick={retry}>
-                      <RetryIcon />
-                    </MessageAction>
-                  )}
-                </>
-              }
-            >
+            <Message key={i} from="assistant" actions={<MessageCopyButton text={turn.text} />}>
               <Markdown>{turn.text}</Markdown>
             </Message>
           ),
         )}
-        {streaming && (
-          <Message from="assistant">
-            <Markdown streaming>{text}</Markdown>
+        {status !== "idle" && (
+          <Message
+            from="assistant"
+            actions={
+              !streaming && (
+                <>
+                  <MessageCopyButton text={text} />
+                  <MessageAction label="Retry" onClick={retry}>
+                    <RetryIcon />
+                  </MessageAction>
+                </>
+              )
+            }
+          >
+            <Markdown streaming={streaming}>{text}</Markdown>
           </Message>
         )}
       </Conversation>

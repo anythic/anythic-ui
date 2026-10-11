@@ -67,7 +67,7 @@ export function ToolCallDemo() {
       <p className="text-sm font-medium">What's the weather in Tashkent tomorrow?</p>
       {progress.current >= 0 && (
         <div className="mt-3 space-y-2">
-          {CALLS.map(({ fails, ...call }, i) => {
+          {CALLS.map(({ fails: _fails, ...call }, i) => {
             const status = statusOf(i);
             const finished = status === "success" || status === "error";
             return (

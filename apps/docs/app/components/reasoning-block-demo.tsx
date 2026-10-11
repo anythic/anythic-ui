@@ -1,7 +1,7 @@
 "use client";
 
 import { ReasoningBlock, StreamingText, useTextStream, type TextStreamSource } from "@anythic/ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { fakeStream } from "../../lib/fake-stream";
 
 const REASONING =
@@ -21,14 +21,21 @@ export function ReasoningBlockDemo() {
   const reasoning = useTextStream(reasoningSource);
   const answer = useTextStream(answerSource);
 
-  // Like a real model: the answer starts once thinking is finished.
-  useEffect(() => {
-    if (reasoning.status === "done") setAnswerSource(fakeStream(ANSWER, 40));
-  }, [reasoning.status]);
-
+  // Like a real model, the answer starts once thinking is finished: the
+  // answer stream waits for the reasoning stream to end.
   const start = () => {
-    setAnswerSource(null);
-    setReasoningSource(fakeStream(REASONING, 50));
+    let thoughtDone!: () => void;
+    const thinking = new Promise<void>((resolve) => (thoughtDone = resolve));
+    async function* reasoning() {
+      yield* fakeStream(REASONING, 50);
+      thoughtDone();
+    }
+    async function* answer() {
+      await thinking;
+      yield* fakeStream(ANSWER, 40);
+    }
+    setReasoningSource(reasoning());
+    setAnswerSource(answer());
   };
 
   return (
@@ -41,7 +48,7 @@ export function ReasoningBlockDemo() {
           className="mt-3"
         />
       )}
-      {answer.status !== "idle" && (
+      {reasoning.status === "done" && answer.status !== "idle" && (
         <StreamingText
           text={answer.text}
           streaming={answer.status === "streaming"}

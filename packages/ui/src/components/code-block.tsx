@@ -129,8 +129,10 @@ function useHighlightedHtml(
     };
   }, []);
 
+  // The theme is compared by its names, so an inline object does not re-highlight.
+  const { light, dark } = theme;
   useEffect(() => {
-    latest.current = { code, language, theme };
+    latest.current = { code, language, theme: { light, dark } };
     dirty.current = true;
     if (running.current) return;
     running.current = true;
@@ -150,8 +152,7 @@ function useHighlightedHtml(
         running.current = false;
       }
     })();
-    // theme is compared by value so an inline object does not re-highlight.
-  }, [code, language, theme.light, theme.dark]);
+  }, [code, language, light, dark]);
 
   return html;
 }

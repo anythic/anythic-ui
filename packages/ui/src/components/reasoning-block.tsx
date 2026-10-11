@@ -74,6 +74,9 @@ export function ReasoningBlock({
       if (!userToggled.current && open) setOpen(false);
     }
     wasStreaming.current = streaming;
+    // Only a change in `streaming` should open, close or time the block; `open`
+    // and `setOpen` are read fresh from the render that changed it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [streaming]);
 
   const duration = durationProp ?? measured;

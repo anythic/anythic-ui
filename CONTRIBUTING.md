@@ -22,6 +22,7 @@ pnpm dev
 | `apps/docs/app`          | The docs app and its demos (Next.js)              |
 | `apps/docs/app/api/chat` | The live demo's server route, model and tools     |
 | `apps/docs/lib`          | Docs-only helpers, such as the AI SDK part mapper |
+| `packages/eslint-config` | Shared ESLint configs: `base`, `react`, `next`    |
 
 ## Before you open a pull request
 
@@ -29,6 +30,7 @@ Run the same checks CI runs:
 
 ```sh
 pnpm format       # Prettier
+pnpm lint         # ESLint, including React hook and accessibility rules
 pnpm typecheck
 pnpm test
 pnpm build

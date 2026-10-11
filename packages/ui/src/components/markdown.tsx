@@ -125,12 +125,36 @@ const defaultComponents: Components = {
   pre: ({ children }) => <Pre>{children}</Pre>,
   sup: ({ node: _, ...props }) => <Sup {...props} />,
   p: ({ node: _, ...props }) => <p className="my-3" {...props} />,
-  h1: ({ node: _, ...props }) => <h1 className="mb-3 mt-6 text-2xl font-semibold" {...props} />,
-  h2: ({ node: _, ...props }) => <h2 className="mb-3 mt-6 text-xl font-semibold" {...props} />,
-  h3: ({ node: _, ...props }) => <h3 className="mb-2 mt-5 text-lg font-semibold" {...props} />,
-  h4: ({ node: _, ...props }) => <h4 className="mb-2 mt-4 font-semibold" {...props} />,
-  h5: ({ node: _, ...props }) => <h5 className="mb-2 mt-4 font-semibold" {...props} />,
-  h6: ({ node: _, ...props }) => <h6 className="mb-2 mt-4 font-semibold" {...props} />,
+  h1: ({ node: _, children, ...props }) => (
+    <h1 className="mb-3 mt-6 text-2xl font-semibold" {...props}>
+      {children}
+    </h1>
+  ),
+  h2: ({ node: _, children, ...props }) => (
+    <h2 className="mb-3 mt-6 text-xl font-semibold" {...props}>
+      {children}
+    </h2>
+  ),
+  h3: ({ node: _, children, ...props }) => (
+    <h3 className="mb-2 mt-5 text-lg font-semibold" {...props}>
+      {children}
+    </h3>
+  ),
+  h4: ({ node: _, children, ...props }) => (
+    <h4 className="mb-2 mt-4 font-semibold" {...props}>
+      {children}
+    </h4>
+  ),
+  h5: ({ node: _, children, ...props }) => (
+    <h5 className="mb-2 mt-4 font-semibold" {...props}>
+      {children}
+    </h5>
+  ),
+  h6: ({ node: _, children, ...props }) => (
+    <h6 className="mb-2 mt-4 font-semibold" {...props}>
+      {children}
+    </h6>
+  ),
   ul: ({ node: _, className, ...props }) => (
     <ul
       className={cn(
@@ -145,13 +169,15 @@ const defaultComponents: Components = {
     <ol className="my-3 list-decimal pl-6 [&_ul]:my-1 [&_ol]:my-1" {...props} />
   ),
   li: ({ node: _, ...props }) => <li className="my-1 [&>input]:mr-2" {...props} />,
-  a: ({ node: _, ...props }) => (
+  a: ({ node: _, children, ...props }) => (
     <a
       className="font-medium underline underline-offset-2 hover:no-underline"
       target="_blank"
       rel="noopener noreferrer"
       {...props}
-    />
+    >
+      {children}
+    </a>
   ),
   blockquote: ({ node: _, ...props }) => (
     <blockquote className="my-3 border-l-2 border-border pl-3 text-muted-foreground" {...props} />

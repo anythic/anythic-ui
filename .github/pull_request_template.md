@@ -8,7 +8,7 @@
 
 ## Checklist
 
-- [ ] `pnpm format`, `pnpm typecheck`, `pnpm test` and `pnpm build` pass
+- [ ] `pnpm format`, `pnpm lint`, `pnpm typecheck`, `pnpm test` and `pnpm build` pass
 - [ ] New behavior has tests
 - [ ] Changed components have an updated demo in `apps/docs`
 - [ ] User-visible text can be translated through `labels`
