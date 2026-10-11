@@ -1,13 +1,16 @@
 # anythic/ui
 
+[![CI](https://github.com/anythic/anythic-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/anythic/anythic-ui/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 AI-native UI primitives and components built for autonomous agents, streaming reasoning, and developer interfaces.
 
 ## Packages
 
-| Path | Description |
-| --- | --- |
+| Path                         | Description                                                            |
+| ---------------------------- | ---------------------------------------------------------------------- |
 | [`packages/ui`](packages/ui) | `@anythic/ui`, the component library (React, TypeScript, Tailwind CSS) |
-| [`apps/docs`](apps/docs) | Docs and live demos (Next.js) |
+| [`apps/docs`](apps/docs)     | Docs and live demos (Next.js)                                          |
 
 ## Usage
 
@@ -56,3 +59,11 @@ pnpm test
 pnpm typecheck
 pnpm build
 ```
+
+## Contributing
+
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup and guidelines, and [SECURITY.md](SECURITY.md) to report a vulnerability privately.
+
+## License
+
+[MIT](LICENSE) © anythic

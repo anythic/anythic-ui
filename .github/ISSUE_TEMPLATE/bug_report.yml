@@ -1,0 +1,28 @@
+name: Bug report
+description: Something in anythic/ui does not work as expected
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: A minimal code sample or a link to a reproduction helps the most.
+    validations:
+      required: true
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      placeholder: e.g. Markdown, ToolCall, useTextStream
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      placeholder: "@anythic/ui 0.1.0, React 19, Next.js 16, Chrome 140"
