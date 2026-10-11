@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ChatDemo } from "./components/chat-demo";
+import { CodeDiffDemo } from "./components/code-diff-demo";
 import { MarkdownDemo } from "./components/markdown-demo";
 import { PlanDemo } from "./components/plan-demo";
 import { ReasoningBlockDemo } from "./components/reasoning-block-demo";
@@ -89,6 +90,17 @@ export default function Home() {
         </p>
         <div className="mt-4">
           <PlanDemo />
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-lg font-medium">CodeDiff</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          A file change, line by line, from old and new code or a unified patch. Unchanged stretches
+          fold; click one to expand it.
+        </p>
+        <div className="mt-4">
+          <CodeDiffDemo />
         </div>
       </section>
 

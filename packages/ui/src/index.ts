@@ -10,6 +10,12 @@ export {
   type CodeBlockProps,
   type CodeTheme,
 } from "./components/code-block";
+export {
+  CodeDiff,
+  type CodeDiffLabels,
+  type CodeDiffProps,
+  type CodeDiffStatus,
+} from "./components/code-diff";
 export { Conversation, type ConversationProps } from "./components/conversation";
 export { Markdown, type MarkdownProps } from "./components/markdown";
 export {
