@@ -80,15 +80,15 @@ The values in this example (`reasoning`, `thinking`, `query`, `results`, `source
 
 ## Component reference
 
-| Category | Components | Use case |
-| --- | --- | --- |
-| Conversation | `Conversation`, `Message`, `MessageAction`, `MessageCopyButton` | Organize chat turns and actions |
-| Input | `PromptInput`, `AttachmentList` | Compose prompts and display attachments |
-| Responses | `StreamingText`, `Markdown`, `CodeBlock` | Display streamed text, Markdown, and code |
-| Sources | `Citation`, `Sources` | Attribute answers to source material |
-| Agents | `ReasoningBlock`, `ToolCall`, `ToolApproval`, `Plan` | Visualize multi-step agent work |
-| Coding | `CodeDiff`, `Terminal`, `ContextUsage` | Show edits, execution, and context usage |
-| Hooks | `useTextStream` | Consume streamed text |
+| Category     | Components                                                      | Use case                                  |
+| ------------ | --------------------------------------------------------------- | ----------------------------------------- |
+| Conversation | `Conversation`, `Message`, `MessageAction`, `MessageCopyButton` | Organize chat turns and actions           |
+| Input        | `PromptInput`, `AttachmentList`                                 | Compose prompts and display attachments   |
+| Responses    | `StreamingText`, `Markdown`, `CodeBlock`                        | Display streamed text, Markdown, and code |
+| Sources      | `Citation`, `Sources`                                           | Attribute answers to source material      |
+| Agents       | `ReasoningBlock`, `ToolCall`, `ToolApproval`, `Plan`            | Visualize multi-step agent work           |
+| Coding       | `CodeDiff`, `Terminal`, `ContextUsage`                          | Show edits, execution, and context usage  |
+| Hooks        | `useTextStream`                                                 | Consume streamed text                     |
 
 Each component has a demo in the documentation app. The `/showcase` route combines them in a complete interface.
 
@@ -143,12 +143,12 @@ You can change the AI SDK provider in `apps/docs/app/api/chat/model.ts` without 
 
 ## Repository layout
 
-| Path | Purpose |
-| --- | --- |
-| [`packages/ui`](packages/ui) | Publishable `@anythic/ui` components |
-| [`apps/docs`](apps/docs) | Documentation, demos, showcase, and live example |
-| [`packages/eslint-config`](packages/eslint-config) | Shared ESLint configuration |
-| [`scripts`](scripts) | Release and README screenshot tooling |
+| Path                                               | Purpose                                          |
+| -------------------------------------------------- | ------------------------------------------------ |
+| [`packages/ui`](packages/ui)                       | Publishable `@anythic/ui` components             |
+| [`apps/docs`](apps/docs)                           | Documentation, demos, showcase, and live example |
+| [`packages/eslint-config`](packages/eslint-config) | Shared ESLint configuration                      |
+| [`scripts`](scripts)                               | Release and README screenshot tooling            |
 
 ## Quality checks
 
