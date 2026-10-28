@@ -1,67 +1,164 @@
 # Contributing to anythic/ui
 
-Thanks for helping out! Bug reports, ideas and pull requests are all welcome.
+Thank you for your interest in contributing to **anythic/ui**!
 
-## Setup
+We welcome bug fixes, new components, accessibility improvements, documentation updates, and tests. Our goal is to make AI interfaces easier to build, customize, and maintain.
 
-You need Node 20.9+ (`.nvmrc` pins 22, which CI uses; `nvm use` picks it) and pnpm 10 (`corepack enable` picks the right version).
+## Getting started
 
-In VS Code, accept the recommended extensions when prompted: ESLint, Prettier, Tailwind CSS IntelliSense and Vitest. The workspace settings format on save and fix lint problems on save.
+Before contributing:
 
-```sh
-pnpm install
+- Search existing issues and pull requests to avoid duplicate work.
+- Discuss substantial changes or new APIs in an issue first.
+- Keep pull requests focused and easy to review.
+- Never commit API keys, credentials, or private data.
+
+### Requirements
+
+- Node.js 20.9+ (Node 22 is pinned in `.nvmrc`)
+- pnpm 10
+- Git
+
+### Local development
+
+```bash
+git clone https://github.com/anythic/anythic-ui.git
+cd anythic-ui
+pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-`pnpm dev` builds `@anythic/ui` in watch mode and starts the docs app at http://localhost:3000, where every component has a demo. The live demo at `/live` also needs a model key; see [Live demo](README.md#live-demo).
+Visit http://localhost:3000 to explore the documentation and component demos.
 
-## Repository layout
+For the AI-powered live example, follow the setup instructions in the [README](README.md#live-model-demo).
 
-| Path                     | What lives there                                  |
-| ------------------------ | ------------------------------------------------- |
-| `packages/ui/src`        | The library: components, hooks and helpers        |
-| `packages/ui/test`       | Tests, with Vitest and Testing Library            |
-| `apps/docs/app`          | The docs app and its demos (Next.js)              |
-| `apps/docs/app/api/chat` | The live demo's server route, model and tools     |
-| `apps/docs/lib`          | Docs-only helpers, such as the AI SDK part mapper |
-| `packages/eslint-config` | Shared ESLint configs: `base`, `react`, `next`    |
+## Repository structure
 
-## Before you open a pull request
+- `packages/ui/src` — React components, hooks, and shared utilities
+- `packages/ui/test` — Vitest and Testing Library tests
+- `apps/docs/app` — Next.js documentation and component examples
+- `apps/docs/app/api/chat` — live AI demo server routes
+- `apps/docs/lib` — documentation-specific helpers
+- `packages/eslint-config` — shared linting rules
+- `.changeset` — release notes and version management
 
-Run the same checks CI runs:
+## Contribution workflow
 
-```sh
-pnpm format       # Prettier
-pnpm lint         # ESLint, including React hook and accessibility rules
+1. Synchronize your local `main` branch.
+2. Create a descriptive feature or fix branch.
+3. Implement your change with focused commits.
+4. Add tests and update examples when applicable.
+5. Run the required checks.
+6. Open a pull request against `main`.
+
+```bash
+git switch main
+git pull --ff-only origin main
+git switch -c docs/your-improvement
+```
+
+Use descriptive branch names such as `fix/streaming-markdown`, `docs/component-guides`, or `feat/new-component`.
+
+## Development guidelines
+
+### Component design
+
+- Prefer small, composable React components.
+- Maintain consistent TypeScript interfaces.
+- Keep public APIs predictable and documented.
+- Avoid unnecessary runtime dependencies.
+- Keep the library independent of specific AI providers.
+- Place provider-specific integrations in the documentation app.
+
+### Accessibility
+
+Accessibility is a core requirement:
+
+- Use semantic HTML and native controls whenever practical.
+- Support keyboard navigation and visible focus states.
+- Label icon-only buttons and interactive controls.
+- Respect the user's reduced-motion preferences.
+- Make built-in user-facing strings configurable.
+
+### Testing and documentation
+
+- Add regression tests for bug fixes.
+- Cover relevant edge cases and streaming behavior.
+- Update component demos when changing public behavior.
+- Document new props and important usage patterns.
+- Keep examples concise and reproducible.
+
+## Quality checks
+
+Run these checks before requesting review:
+
+```bash
+pnpm format:check
+pnpm lint
 pnpm typecheck
 pnpm test
 pnpm build
 ```
 
+To automatically format your changes:
+
+```bash
+pnpm format
+```
+
+CI runs the quality checks on pull requests and pushes to `main`.
+
 ## Changesets
 
-Every change to `@anythic/ui` that users will notice needs a changeset: a short note that says what changed and whether it is a patch, minor or major release. Add one with:
+User-visible changes to `@anythic/ui` require a changeset.
 
-```sh
+```bash
 pnpm changeset
 ```
 
-Pick `@anythic/ui`, choose the bump, and write one or two sentences for the changelog. Commit the generated file in `.changeset/` with your change. Docs-only and internal changes do not need one.
+Select `@anythic/ui` and choose an appropriate release type:
 
-When changesets reach `main`, the release workflow opens a "Version Packages" pull request that bumps the version and updates `CHANGELOG.md`. Merging it publishes to npm through [trusted publishing](https://docs.npmjs.com/trusted-publishers), with provenance, and creates the GitHub release. No npm token is involved.
+- **Patch** — backward-compatible bug fixes
+- **Minor** — new backward-compatible functionality
+- **Major** — breaking API changes
 
-## Guidelines
+Write a concise summary of the change and commit the generated `.changeset` file.
 
-- **Keep pull requests focused.** One component or fix per pull request is easiest to review.
-- **Add tests** for new behavior and bug fixes, next to the existing ones in `packages/ui/test`.
-- **Add or update a demo** in `apps/docs` when you add or change a component.
-- **Stay provider-agnostic.** Components take plain props (`text`, `status`, `input`) and never import a model SDK. Provider-specific glue belongs in the docs app.
-- **Accessibility is part of done.** Use real buttons, label icon-only controls, keep focus visible, and respect `prefers-reduced-motion`.
-- **Make text translatable.** Any built-in string a user sees should be overridable through a `labels` or `label` prop.
-- **Dependencies are a cost.** Ask in an issue before adding a runtime dependency to `@anythic/ui`.
+Documentation-only and internal changes do not require a changeset.
 
-## Reporting bugs and security issues
+The release workflow manages package versioning, changelog updates, npm publishing, and GitHub releases.
 
-Open an issue with steps to reproduce. For security problems, please follow [SECURITY.md](SECURITY.md) instead of opening a public issue.
+## Pull request checklist
+
+Before submitting, verify:
+
+- [ ] My change is focused and clearly explained.
+- [ ] I have added or updated relevant tests.
+- [ ] Documentation and examples are updated where needed.
+- [ ] Formatting, linting, typechecking, tests, and build pass.
+- [ ] I have included a changeset when required.
+- [ ] No secrets or unrelated generated files are included.
+
+## Reporting bugs
+
+A useful bug report contains:
+
+1. A clear description of the issue.
+2. Steps to reproduce the behavior.
+3. Expected and actual results.
+4. Relevant package and environment versions.
+5. A minimal reproduction, when possible.
+
+For feature requests, explain the problem, intended users, and expected behavior.
+
+## Security
+
+Please do not disclose security vulnerabilities in public issues.
+
+Follow [SECURITY.md](SECURITY.md) for private vulnerability reporting.
+
+## License
 
 By contributing, you agree that your contributions are licensed under the [MIT License](LICENSE).
+
+Thank you for helping improve anythic/ui!
